@@ -1,0 +1,50 @@
+// Simulação de banco de dados de vídeos
+const videos = [
+  {
+    id: 'video-produtividade',
+    titulo: 'Produtividade no Trabalho',
+    descricao: 'Aprenda técnicas para aumentar sua produtividade e eficiência no ambiente profissional.',
+    urlDoVideoEmbed: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+  },
+  {
+    id: 'video-gestao-tempo',
+    titulo: 'Gestão de Tempo',
+    descricao: 'Domine métodos para organizar melhor seu tempo e alcançar seus objetivos.',
+    urlDoVideoEmbed: 'https://www.youtube.com/embed/9bZkp7q19f0'
+  },
+  {
+    id: 'video-comunicacao',
+    titulo: 'Comunicação Assertiva',
+    descricao: 'Melhore sua comunicação interpessoal e profissional com técnicas práticas.',
+    urlDoVideoEmbed: 'https://www.youtube.com/embed/3JZ_D3ELwOQ'
+  }
+];
+
+function getParam(name) {
+  const url = new URL(window.location.href);
+  return url.searchParams.get(name);
+}
+
+function renderVideo() {
+  const videoId = getParam('videoId');
+  const video = videos.find(v => v.id === videoId);
+  const frame = document.getElementById('videoFrame');
+  const title = document.getElementById('videoTitle');
+  const desc = document.getElementById('videoDesc');
+  const error = document.getElementById('errorMsg');
+
+  if (!videoId || !video) {
+    frame.style.display = 'none';
+    title.style.display = 'none';
+    desc.style.display = 'none';
+    error.style.display = 'block';
+    error.innerText = 'Vídeo não encontrado.';
+    return;
+  }
+
+  frame.src = video.urlDoVideoEmbed;
+  title.innerText = video.titulo;
+  desc.innerText = video.descricao;
+}
+
+document.addEventListener('DOMContentLoaded', renderVideo);

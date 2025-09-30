@@ -1,0 +1,21 @@
+/* src/index.css */
+
+/* Remove margens e define uma fonte padrão para a página inteira */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Garante que o container principal do React possa ocupar a tela inteira */
+#root {
+  min-height: 100vh;
+}
+
+/* Um bom "reset" para garantir que o layout seja mais previsível */
+* {
+  box-sizing: border-box;
+}

@@ -1,0 +1,50 @@
+/* Header.css */
+.header {
+  background: #ee0707;
+  color: #fff;
+  padding: 1rem;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.user-info {
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.user-info span {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+.logout-btn {
+  background: #fff;
+  color: #ee0707;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1.2rem;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.logout-btn:hover {
+  background: #ee0707;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+.header-logo {
+  height: 100px;
+  margin-right: 1rem;
+  vertical-align: middle;
+  align-items: left ;
+}

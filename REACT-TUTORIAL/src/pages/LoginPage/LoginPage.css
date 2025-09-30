@@ -1,0 +1,182 @@
+/* src/pages/LoginPage/LoginPage.css */
+
+.login-page-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #f8f9fa;
+  padding-top: 4rem;
+}
+
+/* --- Seção Esquerda: Formulário --- */
+.login-form-section {
+  flex-basis: 40%;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.form-wrapper {
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.form-header {
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.form-header h1 {
+  margin: 0 auto;
+  display: block;
+}
+
+.form-main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+                                                                                                                                
+.form-logo {
+  width: 250px;
+  height: 250px;
+  margin: 0 auto 1.5rem auto;
+}
+
+.form-main h1 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.input-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #aaa;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 14px 45px 14px 45px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #aaa;
+  cursor: pointer;
+  z-index: 2;
+  transition: color 0.3s;
+}
+
+.password-toggle:hover {
+  color: #007bff;
+}
+
+.form-links {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  margin: 1rem 0 1.5rem 0;
+}
+
+.form-links a {
+  text-decoration: none;
+  color: #555;
+}
+
+.btn-acessar {
+  width: 100%;
+  padding: 14px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-acessar:hover {
+  background-color: #555;
+}
+
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #888;
+}
+
+
+/* --- Seção Direita: Promoção --- */
+
+.promo-section {
+  flex-basis: 60%;
+  background: linear-gradient(90deg, #000000 0%, #6a82fb 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.promo-image {
+  max-width: 820px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px 0 rgba(6, 8, 107, 0.067);
+}
+
+
+
+
+/* --- Novos estilos para autenticação --- */
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  border: 1px solid #f5c6cb;
+  font-size: 0.9rem;
+}
+
+.btn-acessar:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* --- Responsividade --- */
+@media (max-width: 800px) {
+  .promo-section {
+    display: none; /* Esconde a imagem promocional em telas menores */
+  }
+  .login-form-section {
+    flex-basis: 100%;
+  }
+}
