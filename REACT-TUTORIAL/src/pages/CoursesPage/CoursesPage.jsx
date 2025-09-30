@@ -4,7 +4,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { tutoriais as localTutoriais } from '../../data/database';
 import { useLocation, Link } from 'react-router-dom';
-import WhatsAppIcon from '../../components/WhatsAppIcon/WhatsAppIcon';
+import InstagramIcon from '../../components/InstagramIcon/InstagramIcon';
 import { useAuth } from '../../contexts/AuthContext';
 import { loadUserProgress } from '../../utils/progressUtils';
 import { modulosGestaoTempo, modulosTutorial2, modulosTutorial3 } from '../../data/database';
@@ -148,7 +148,7 @@ function CoursesPage() {
           </div>
         </div>
       </main>
-      <WhatsAppIcon />
+      <InstagramIcon />
     </>
   );
 }

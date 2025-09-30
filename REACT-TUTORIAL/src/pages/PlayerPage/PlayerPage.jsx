@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import './PlayerPage.css';
-import WhatsAppIcon from '../../components/WhatsAppIcon/WhatsAppIcon';
+import InstagramIcon from '../../components/InstagramIcon/InstagramIcon';
 import { Spinner } from '../../components/Spinner/Spinner';
 import { useAuth } from '../../contexts/AuthContext';
 import { saveUserProgress, loadUserProgress, validateAndOrderModules } from '../../utils/progressUtils';
@@ -303,7 +303,7 @@ const PlayerPage = () => {
         {/* Botão próximo módulo removido - agora volta direto para módulos */}
       </main>
     </div>
-    <WhatsAppIcon />
+    <InstagramIcon />
     </>
   );
 }

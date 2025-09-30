@@ -4,7 +4,7 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { modulosGestaoTempo, modulosTutorial2, modulosTutorial3 } from '../../data/database';
 import { useLocation, useNavigate, useSearchParams, useParams } from 'react-router-dom';
-import WhatsAppIcon from '../../components/WhatsAppIcon/WhatsAppIcon';
+import InstagramIcon from '../../components/InstagramIcon/InstagramIcon';
 import { useAuth } from '../../contexts/AuthContext';
 import { loadUserProgress, validateAndOrderModules } from '../../utils/progressUtils';
 
@@ -204,7 +204,7 @@ const ModulesPage = () => {
           </ul>
         </div>
       </main>
-      <WhatsAppIcon />
+      <InstagramIcon />
     </>
   );
 };

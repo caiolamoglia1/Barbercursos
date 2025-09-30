@@ -1,20 +1,24 @@
 // src/firebase.js
 import { initializeApp } from 'firebase/app';
+import { getAnalytics } from 'firebase/analytics';
 import { getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyDkHwiQjypYwV2MV4c0t4nbieirb6iydjg",
-  authDomain: "go-academy-4cf50.firebaseapp.com",
-  projectId: "go-academy-4cf50",
-  storageBucket: "go-academy-4cf50.firebasestorage.app",
-  messagingSenderId: "1027522076413",
-  appId: "1:1027522076413:web:45d3cab0f160c6c4a92894",
-  measurementId: "G-RDJSR6P5P2"
+  apiKey: "AIzaSyCPnbugFRNqsZQbgP5Giyr_a-Uw_3BPe5w",
+  authDomain: "platcursomaicon.firebaseapp.com",
+  projectId: "platcursomaicon",
+  storageBucket: "platcursomaicon.firebasestorage.app",
+  messagingSenderId: "426777851049",
+  appId: "1:426777851049:web:677516c36e8b63d5aa25b8",
+  measurementId: "G-XEH7RD0YZN"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 // Initialize Firestore and Auth
 export const db = getFirestore(app);

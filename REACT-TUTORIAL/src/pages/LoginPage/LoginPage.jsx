@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import './LoginPage.css'; // Passo CRÍTICO: Importa os estilos
 import logo from '../../assets/logo.svg'; // Importa o logo da pasta assets
-import WhatsAppIcon from '../../components/WhatsAppIcon/WhatsAppIcon';
+import InstagramIcon from '../../components/InstagramIcon/InstagramIcon';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -91,7 +91,7 @@ function LoginPage() {
         <img src="/gopartsW.png" className="promo-image" />
       </section>
 
-      <WhatsAppIcon />
+      <InstagramIcon />
 
     </div>
   );
