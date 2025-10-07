@@ -1,7 +1,7 @@
 // src/firebase.js
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
-import { getFirestore } from 'firebase/firestore';
+import { getFirestore, enableIndexedDbPersistence } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 
 // Your web app's Firebase configuration
@@ -23,5 +23,14 @@ const analytics = getAnalytics(app);
 // Initialize Firestore and Auth
 export const db = getFirestore(app);
 export const auth = getAuth(app);
+
+// Enable offline persistence (optional - helps with offline mode)
+enableIndexedDbPersistence(db).catch((err) => {
+  if (err.code === 'failed-precondition') {
+    console.warn('Múltiplas abas abertas, persistência desabilitada');
+  } else if (err.code === 'unimplemented') {
+    console.warn('Navegador não suporta persistência offline');
+  }
+});
 
 export default app;

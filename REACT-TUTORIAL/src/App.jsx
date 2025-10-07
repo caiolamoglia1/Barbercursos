@@ -1,5 +1,6 @@
+// src/modules/go-academy/App.jsx
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
 import LoginPage from './pages/LoginPage/LoginPage';
@@ -7,24 +8,33 @@ import CoursesPage from './pages/CoursesPage/CoursesPage';
 import ModulesPage from './pages/ModulesPage/ModulesPage';
 import PlayerPage from './pages/PlayerPage/PlayerPage';
 import AdminPage from './pages/AdminPage/AdminPage';
-import Header from './components/Header/Header';
+import './index.css';
+import './App.css';
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
+    <div className="go-academy-root go-academy-body go-academy-reset">
+      <AuthProvider>
         <Routes>
           <Route path="/" element={<LoginPage />} />
-          <Route path="/cursos" element={<PrivateRoute><CoursesPage /></PrivateRoute>} />
-          <Route path="/modulos" element={<PrivateRoute><ModulesPage /></PrivateRoute>} />
-          <Route path="/tutorial/:id" element={<PrivateRoute><ModulesPage /></PrivateRoute>} />
-          <Route path="/player" element={<PrivateRoute><PlayerPage /></PrivateRoute>} />
-          <Route path="/admin" element={<PrivateRoute adminOnly={true}><AdminPage /></PrivateRoute>} />
+          <Route path="/curso-barbearia" element={<LoginPage />} />
+          <Route path="/curso-barbearia/treinamentos" element={<LoginPage />} />
+          <Route path="/curso-barbearia/cursos" element={<CoursesPage />} />
+          <Route path="/curso-barbearia/modulos" element={<ModulesPage />} />
+          <Route path="/curso-barbearia/tutorial/:id" element={<ModulesPage />} />
+          <Route path="/curso-barbearia/player" element={<PlayerPage />} />
+          <Route path="/curso-barbearia/admin" element={<AdminPage />} />
+          {/* Rotas sem prefixo para compatibilidade */}
+          <Route path="treinamentos" element={<LoginPage />} />
+          <Route path="cursos" element={<CoursesPage />} />
+          <Route path="modulos" element={<ModulesPage />} />
+          <Route path="tutorial/:id" element={<ModulesPage />} />
+          <Route path="player" element={<PlayerPage />} />
+          <Route path="admin" element={<AdminPage />} />
         </Routes>
-      </Router>
-    </AuthProvider>
+      </AuthProvider>
+    </div>
   );
 }
 
 export default App;
-

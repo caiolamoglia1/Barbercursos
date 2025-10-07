@@ -1,4 +1,24 @@
-/* src/index.css */
+/* src/index.css - BarberAcademy Theme */
+
+/* Variáveis CSS Globais - Tema Barbearia */
+:root {
+  --barber-black: #1a1a1a;
+  --barber-gold: #d4af37;
+  --barber-gold-hover: #f0c654;
+  --barber-white: #ffffff;
+  --barber-gray-light: #f5f5f5;
+  --barber-gray-dark: #333333;
+  --barber-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --barber-shadow-gold: 0 4px 12px rgba(212, 175, 55, 0.4);
+  --barber-transition: all 0.3s ease;
+}
+
+/* Reset e configurações globais */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 /* Remove margens e define uma fonte padrão para a página inteira */
 body {
@@ -8,6 +28,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, var(--barber-black) 0%, #2d2d2d 100%);
+  color: var(--barber-white);
+  min-height: 100vh;
 }
 
 /* Garante que o container principal do React possa ocupar a tela inteira */
@@ -15,7 +38,119 @@ body {
   min-height: 100vh;
 }
 
-/* Um bom "reset" para garantir que o layout seja mais previsível */
-* {
-  box-sizing: border-box;
+/* Scrollbar personalizada dourada */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--barber-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--barber-gold) 0%, var(--barber-gold-hover) 100%);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--barber-gold-hover);
+}
+
+/* Seleção de texto dourada */
+::selection {
+  background: var(--barber-gold);
+  color: var(--barber-black);
+}
+
+::-moz-selection {
+  background: var(--barber-gold);
+  color: var(--barber-black);
+}
+
+/* Tipografia global */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--barber-white);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+h2 {
+  font-size: 2rem;
+  border-bottom: 2px solid var(--barber-gold);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+p {
+  line-height: 1.6;
+  color: #cccccc;
+}
+
+/* Links */
+a {
+  color: var(--barber-gold);
+  text-decoration: none;
+  transition: var(--barber-transition);
+}
+
+a:hover {
+  color: var(--barber-gold-hover);
+}
+
+/* Animações globais */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/* Utilitários */
+.text-center {
+  text-align: center;
+}
+
+.text-gold {
+  color: var(--barber-gold);
+}
+
+.bg-dark {
+  background: var(--barber-black);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }

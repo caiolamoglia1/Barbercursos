@@ -1,283 +1,343 @@
-.course-img-placeholder {
-  width: 120px;
-  height: 120px;
-  border-radius: 16px;
-  background: #e9ecef;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1.2rem;
-  box-shadow: 0 2px 8px #0001;
-}
-.course-img-placeholder img {
-  width: 100px;
-  height: 100px;
-  object-fit: contain;
-  opacity: 0.95;
+/* BarberAcademy - CoursesPage CSS */
+/* Tema: Barbearia Elegante - Listagem de Cursos */
+
+.go-academy-courses-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  padding: 2rem 1.5rem 4rem;
+  animation: fadeIn 0.5s ease;
 }
 
-/* Header da página de cursos */
-.courses-page-header {
-  background: #212529;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem 0 1.5rem 0;
-  gap: 1.5rem;
-}
-.courses-header-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 1200px;
+.go-academy-courses-container {
+  max-width: 1400px;
   margin: 0 auto;
 }
-.courses-header-left {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
+
+/* Header da Página */
+.go-academy-courses-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  animation: slideInDown 0.6s ease;
+  position: relative;
+  padding: 1rem 0;
 }
-.courses-header-center {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-.courses-header-right {
-  display: flex;
-  align-items: center;
-}
-.logout-btn {
-  background: #fff;
-  color: #212529;
-  border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1.2rem;
-  font-weight: bold;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-  box-shadow: 0 2px 8px #0001;
-}
-.logout-btn:hover {
-  background: #212529;
-  color: #fff;
-  border: 1px solid #fff;
-}
-.courses-header-logo {
-  width: 190px;
-  
-  border-radius: 8px;
-  object-fit: contain;
-  background: transparent;
-  box-shadow: 0 2px 8px #0002;
-}
-.courses-page-header h1 {
-  font-size: 2rem;
+
+.go-academy-courses-header h1 {
+  font-size: 2.5rem;
+  color: #ffffff;
+  margin: 0 auto;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #ffffff 0%, #d4af37 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   font-weight: 700;
-  margin: 0;
+  letter-spacing: 2px;
+  text-shadow: none;
+  display: inline-block;
 }
 
-
-
-/* Container principal */
-.courses-container {
-  max-width: 1200px;
-  margin: 2rem auto 0 auto;
-  padding: 3rem 1rem 2rem 1rem;
+.go-academy-courses-subtitle {
+  font-size: 1rem;
+  color: #cccccc;
+  font-weight: 300;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.5;
 }
-.courses-container h2 {
+
+/* Grid de Cursos */
+.go-academy-courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* Card de Curso */
+.go-academy-course-card {
+  background: linear-gradient(180deg, #2d2d2d 0%, #1a1a1a 100%);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  cursor: pointer;
+  position: relative;
+  animation: cardFadeIn 0.6s ease backwards;
+}
+
+.go-academy-course-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #d4af37 0%, #f0c654 50%, #d4af37 100%);
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+  transform-origin: left;
+}
+
+.go-academy-course-card:hover::before {
+  transform: scaleX(1);
+}
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.go-academy-course-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.go-academy-course-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.go-academy-course-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.go-academy-course-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.4);
+  border-color: rgba(212, 175, 55, 0.6);
+}
+
+/* Badge de Nível */
+.go-academy-course-level {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: linear-gradient(135deg, #d4af37 0%, #f0c654 100%);
+  color: #1a1a1a;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+  z-index: 2;
+}
+
+/* Conteúdo do Card */
+.go-academy-course-content {
+  padding: 3rem 1.5rem 1.5rem 1.5rem; /* Padding-top maior para não sobrepor o badge */
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+}
+
+.go-academy-course-title {
   font-size: 1.3rem;
-  color: #222;
-  margin-bottom: 1.5rem;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+  line-height: 1.4;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  margin-top: 0;
+}
+
+.go-academy-course-description {
+  font-size: 0.95rem;
+  color: #cccccc;
+  line-height: 1.6;
+  margin-bottom: auto; /* Empurra o meta para o final */
+  font-weight: 300;
+  flex-grow: 1;
+}
+
+.go-academy-course-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  margin-top: 1rem;
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.go-academy-course-duration {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #d4af37;
+  font-size: 0.9rem;
   font-weight: 600;
 }
 
-/* Lista de cursos */
-.course-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+.go-academy-course-duration i {
+  font-size: 1rem;
 }
-.course-list-link {
-  text-decoration: none;
-  color: inherit;
-}
-.course-list-item {
-  background: #f8f9fa;
-  padding: 1.3rem 1.2rem;
-  border: 1px solid #e9ecef;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px #0001;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+.go-academy-course-btn {
+  background: linear-gradient(135deg, #d4af37 0%, #f0c654 100%);
+  color: #1a1a1a;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  border: none;
+  font-size: 0.85rem;
+  font-weight: 700;
   cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.2rem;
-  min-height: 420px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+}
+
+.go-academy-course-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.5);
+}
+
+.go-academy-course-btn:active {
   transform: translateY(0);
 }
 
-.course-list-item:hover {
-  border: 2px solid #007bff;
-  box-shadow: 0 8px 25px rgba(0, 123, 255, 0.15);
-  transform: translateY(-5px);
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
-}
-
-.course-list-item:active {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
-}
-
-.course-list-item h3 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.1rem;
-  font-weight: 600;
-  text-align: center;
-}
-
-.course-list-item p {
-  margin: 0;
-  color: #555;
-  font-size: 0.97rem;
-  text-align: justify;
-  line-height: 1.5;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  hyphens: auto;
-}
-
-.course-header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  width: 100%;
-  justify-content: center;
-}
-
-.course-img-placeholder {
-  width: 120px;
-  height: 120px;
-  border-radius: 16px;
-  background: #e9ecef;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 8px #0001;
-  flex-shrink: 0;
-}
-
-.course-img-placeholder img {
-  width: 100px;
-  height: 100px;
-  object-fit: contain;
-  opacity: 0.95;
-}
-
-.course-progress {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.3rem;
-  padding: 0.8rem 1rem;
-  background: #f8f9fa;
-  border-radius: 8px;
-  border: 1px solid #e9ecef;
+/* Botão de Logout */
+.go-academy-logout-btn {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: rgba(220, 53, 69, 0.9);
+  color: #ffffff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  border: none;
   font-size: 0.9rem;
-  font-weight: 500;
-  color: #495057;
-  min-width: 140px;
+  font-weight: 600;
+  cursor: pointer;
   transition: all 0.3s ease;
-}
-
-.course-list-item:hover .course-progress {
-  background: #e3f2fd;
-  border-color: #2196f3;
-  transform: scale(1.05);
-}
-
-.course-progress i {
-  color: #28a745;
-  font-size: 1.2rem;
-  margin-bottom: 0.2rem;
-  transition: all 0.3s ease;
-}
-
-.course-list-item:hover .course-progress i {
-  color: #2196f3;
-  transform: rotate(10deg) scale(1.1);
-}
-
-.progress-text {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 0.1rem;
+  gap: 0.4rem;
 }
 
-.progress-number {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #28a745;
+.go-academy-logout-btn:hover {
+  background: rgba(200, 35, 51, 1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
 }
 
-.progress-label {
-  font-size: 0.75rem;
-  color: #6c757d;
+.go-academy-logout-btn i {
+  font-size: 1rem;
+}
+
+/* Estado Vazio */
+.go-academy-empty-state {
   text-align: center;
-  line-height: 1.2;
+  padding: 4rem 2rem;
+  color: #cccccc;
 }
 
-@media (max-width: 600px) {
-  .courses-container {
-    padding: 1.2rem 0.5rem 1.5rem 0.5rem;
+.go-academy-empty-state i {
+  font-size: 4rem;
+  color: #d4af37;
+  margin-bottom: 1.5rem;
+  opacity: 0.6;
+}
+
+.go-academy-empty-state h3 {
+  font-size: 1.8rem;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.go-academy-empty-state p {
+  font-size: 1.1rem;
+  color: #999;
+}
+
+/* Loading Spinner */
+.go-academy-loading {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #d4af37;
+}
+
+.go-academy-loading i {
+  font-size: 3rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .go-academy-courses-page {
+    padding: 1.5rem 1rem 3rem;
   }
-  .courses-header-logo {
-    width: 120px;
-    
+
+  .go-academy-courses-header h1 {
+    font-size: 1.6rem;
   }
-  .courses-page-header h1 {
+
+  .go-academy-courses-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .go-academy-courses-grid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+
+  .go-academy-logout-btn {
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .go-academy-course-title {
     font-size: 1.2rem;
   }
-  
-  /* Ajustes para mobile */
-  .course-list {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+
+  .go-academy-course-description {
+    font-size: 0.9rem;
   }
-  
-  .course-list-item {
-    height: auto;
-    min-height: 420px;
-    max-height: 500px;
-    overflow-y: auto;
-    padding: 1rem;
-  }
-  
-  .course-list-item p {
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    hyphens: auto;
+
+  .go-academy-course-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
   }
 }
 
-/* Media query para tablets */
-@media (max-width: 768px) and (min-width: 601px) {
-  .course-list {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+@media (max-width: 480px) {
+  .go-academy-courses-header h1 {
+    font-size: 1.4rem;
   }
-  
-  .course-list-item {
-    height: auto;
-    min-height: 420px;
-    max-height: 450px;
-    overflow-y: auto;
+
+  .go-academy-course-level {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.8rem;
+  }
+
+  .go-academy-course-content {
+    padding: 1.2rem;
   }
 }

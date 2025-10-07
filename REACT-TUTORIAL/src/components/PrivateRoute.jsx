@@ -7,12 +7,12 @@ function PrivateRoute({ children, adminOnly = false }) {
 
   // Se não estiver logado, redireciona para login
   if (!currentUser) {
-    return <Navigate to="/" />;
+    return <Navigate to="/curso-barbearia" />;
   }
 
   // Se requer admin e o usuário não for admin, redireciona para cursos
   if (adminOnly && !isAdmin(currentUser.email)) {
-    return <Navigate to="/cursos" />;
+    return <Navigate to="/curso-barbearia/cursos" />;
   }
 
   return children;
@@ -20,7 +20,8 @@ function PrivateRoute({ children, adminOnly = false }) {
 
 // Função para verificar se o usuário é admin (baseado no email)
 function isAdmin(email) {
-  const adminEmails = ['admin@goparts.com', 'caio@goparts.com']; // Adicione emails de admin aqui
+  // Lista de emails com acesso de administrador
+  const adminEmails = ['admin@barberacademy.com', 'barbeiro@email.com']; // Substitua pelo email do barbeiro
   return adminEmails.includes(email);
 }
 

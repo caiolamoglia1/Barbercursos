@@ -1,0 +1,18 @@
+# Vídeos placeholder para BarberAcademy
+# Tutorial 1 - Fundamentos
+mod1: https://www.youtube.com/watch?v=jCQVHN1LXNg
+mod3: https://www.youtube.com/watch?v=5KBWCQcLpAo
+mod5: https://www.youtube.com/watch?v=g-Rl0tzs0FY
+mod7: https://www.youtube.com/watch?v=Q_l4fa7y97o
+mod9: https://www.youtube.com/watch?v=oFI2s6DQk0k
+
+# Tutorial 2 - Técnicas Avançadas
+adv1: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+adv3: https://www.youtube.com/watch?v=5KBWCQcLpAo
+adv5: https://www.youtube.com/watch?v=g-Rl0tzs0FY
+adv7: https://www.youtube.com/watch?v=Q_l4fa7y97o
+
+# Tutorial 3 - Barba e Finalização
+barba1: https://www.youtube.com/watch?v=jCQVHN1LXNg
+barba3: https://www.youtube.com/watch?v=5KBWCQcLpAo
+barba5: https://www.youtube.com/watch?v=oFI2s6DQk0k

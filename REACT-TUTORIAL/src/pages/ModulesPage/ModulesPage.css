@@ -1,163 +1,216 @@
-.module-item.locked {
-  color: #adb5bd;
-  background: #f5f5f5;
-  cursor: not-allowed;
-  pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  opacity: 0.7;
-}
-.module-item.locked i.fa-lock {
-  color: #adb5bd;
-  font-size: 1.2rem;
-}
-.module-item.completed {
-  background: #e6f9ea;
-  color: #28a745;
-}
-.clickable.module-item {
-  transition: box-shadow 0.2s, border 0.2s, background 0.2s;
-}
-.clickable.module-item:hover, .clickable.module-item:focus {
-  border: 1.5px solid #212529;
-  box-shadow: 0 4px 16px #0002;
-  background: #e9ecef;
-  outline: none;
+/* BarberAcademy - ModulesPage CSS */
+/* Lista de Módulos com Progressão */
+
+.go-academy-modules-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  padding: 2rem 1.5rem 4rem;
 }
 
-/* Header da página de módulos */
-.modules-page-header {
-  background: #212529;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem 0 1.5rem 0;
-  gap: 1.5rem;
-}
-.modules-header-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 1200px;
+.go-academy-modules-page main {
+  max-width: 900px;
   margin: 0 auto;
 }
-.modules-header-left {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-.modules-header-center {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.modules-header-right {
-  display: flex;
-  align-items: center;
-}
-.back-to-courses-btn {
-  background: #212529;
-  color: #fff;
-  border: 1px solid #fff;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  font-weight: bold;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-  box-shadow: 0 2px 8px #0001;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.back-to-courses-btn:hover {
-  background: #fff;
-  color: #212529;
-  border: 1px solid #212529;
-}
-.back-to-courses-btn i {
-  font-size: 0.9rem;
-}
-.modules-header-logo {
-  width: 190px;
-  
+
+/* Botão Voltar */
+.go-academy-back-to-courses-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  padding: 0.75rem 1.5rem;
   border-radius: 8px;
-  object-fit: contain;
-  background: transparent;
-  box-shadow: 0 2px 8px #0002;
-}
-.modules-page-header h1 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 0;
-}
-.logout-btn {
-  background: #fff;
-  color: #212529;
-  border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1.2rem;
-  font-weight: bold;
   font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-  box-shadow: 0 2px 8px #0001;
-}
-.logout-btn:hover {
-  background: #212529;
-  color: #fff;
-  border: 1px solid #fff;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
 }
 
-/* Conteúdo principal */
-.modules-page {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 2rem;
+.go-academy-back-to-courses-btn:hover {
+  background: rgba(212, 175, 55, 0.2);
+  border-color: #d4af37;
+  transform: translateX(-5px);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
 }
-.modules-list {
+
+.go-academy-back-to-courses-btn i {
+  font-size: 1.2rem;
+}
+
+/* Título da Página */
+.go-academy-modules-page h2 {
+  font-size: 2.5rem;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  text-align: center;
+  border-bottom: 3px solid #d4af37;
+  padding-bottom: 1rem;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Lista de Módulos */
+.go-academy-modules-list {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 2rem 0;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.25rem;
 }
-.module-item {
-  background: #f8f9fa;
-  border: 1px solid #e9ecef;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px #0001;
-  padding: 1.5rem;
+
+/* Item de Módulo */
+.go-academy-module-item {
+  background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+  border: 2px solid rgba(212, 175, 55, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  animation: moduleSlideIn 0.5s ease backwards;
+}
+
+@keyframes moduleSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.go-academy-module-item:nth-child(1) { animation-delay: 0.1s; }
+.go-academy-module-item:nth-child(2) { animation-delay: 0.15s; }
+.go-academy-module-item:nth-child(3) { animation-delay: 0.2s; }
+.go-academy-module-item:nth-child(4) { animation-delay: 0.25s; }
+.go-academy-module-item:nth-child(5) { animation-delay: 0.3s; }
+
+/* Barra Lateral Dourada */
+.go-academy-module-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background: linear-gradient(180deg, #d4af37 0%, #f0c654 50%, #d4af37 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.go-academy-module-item.go-academy-clickable:hover::before,
+.go-academy-module-item.go-academy-completed::before {
+  opacity: 1;
+}
+
+/* Módulo Clicável */
+.go-academy-module-item.go-academy-clickable {
+  cursor: pointer;
+}
+
+.go-academy-module-item.go-academy-clickable:hover {
+  background: linear-gradient(135deg, #3a3a3a 0%, #252525 100%);
+  border-color: #d4af37;
+  transform: translateX(10px);
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
+}
+
+/* Módulo Bloqueado */
+.go-academy-module-item.go-academy-locked {
+  opacity: 0.5;
+  cursor: not-allowed;
+  border-color: rgba(153, 153, 153, 0.3);
+}
+
+.go-academy-module-item.go-academy-locked i {
+  color: #999;
+}
+
+/* Módulo Completado */
+.go-academy-module-item.go-academy-completed {
+  background: linear-gradient(135deg, rgba(40, 167, 69, 0.1) 0%, rgba(40, 167, 69, 0.05) 100%);
+  border-color: rgba(40, 167, 69, 0.4);
+}
+
+/* Conteúdo do Módulo */
+.go-academy-module-content {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 500;
 }
-.module-content {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.25rem;
+
+.go-academy-module-content span:first-child {
+  flex: 1;
 }
-.module-check-icon {
-  color: #28a745;
-  font-size: 1.2rem;
+
+.go-academy-module-content span:last-child {
+  font-size: 0.95rem;
+  color: #999;
   margin-left: 1rem;
 }
-.module-item h3 {
-  margin: 0 0 1rem 0;
-  font-size: 1.1rem;
+
+.go-academy-module-item.go-academy-completed .go-academy-module-content span:last-child {
+  color: #28a745;
   font-weight: 600;
 }
-.module-item iframe {
-  border-radius: 8px;
-  box-shadow: 0 2px 8px #0001;
-  margin-top: 0.5rem;
+
+/* Ícone de Check */
+.go-academy-module-check-icon {
+  color: #28a745;
+  font-size: 1.5rem;
+  margin-left: 1rem;
+  animation: checkPop 0.4s ease;
+}
+
+@keyframes checkPop {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .go-academy-modules-page {
+    padding: 1.5rem 1rem 3rem;
+  }
+
+  .go-academy-modules-page h2 {
+    font-size: 2rem;
+  }
+
+  .go-academy-module-item {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .go-academy-module-content {
+    font-size: 1rem;
+  }
+
+  .go-academy-back-to-courses-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .go-academy-modules-page h2 {
+    font-size: 1.6rem;
+  }
+
+  .go-academy-module-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .go-academy-module-content span:last-child {
+    margin-left: 0;
+  }
 }

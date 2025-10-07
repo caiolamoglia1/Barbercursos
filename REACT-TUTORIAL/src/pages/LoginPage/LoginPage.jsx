@@ -1,10 +1,10 @@
-// src/pages/LoginPage/LoginPage.jsx
-import React, { useState } from 'react';
+// src/modules/go-academy/pages/LoginPage/LoginPage.jsx
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import './LoginPage.css'; // Passo CRÍTICO: Importa os estilos
-import logo from '../../assets/logo.svg'; // Importa o logo da pasta assets
 import InstagramIcon from '../../components/InstagramIcon/InstagramIcon';
+import barberLogo from '../../images/—Pngtree—cartoons depicting barber_2820272.png';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -15,69 +15,63 @@ function LoginPage() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    document.title = 'BarberAcademy - Academia do Barbeiro Profissional';
+  }, []);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    try {
-      setError('');
-      setLoading(true);
-      await login(email, password);
-      navigate('/cursos');
-    } catch (error) {
-      setError('Falha no login. Verifique suas credenciais.');
-      console.error('Erro no login:', error);
-    }
-
-    setLoading(false);
+    setLoading(true);
+    
+    // Pequeno delay para feedback visual
+    setTimeout(() => {
+      setLoading(false);
+      navigate('/curso-barbearia/cursos');
+    }, 300);
   };
 
   return (
-    <div className="login-page-container">
+    <div className="go-academy-login-page-container">
       
       {/* SEÇÃO ESQUERDA: O FORMULÁRIO */}
-      <section className="login-form-section">
-        <div className="form-wrapper">
-          <header className="form-header">
-            <h1>TREINAMENTOS</h1>
-            
-          </header>
-          <main className="form-main">
-            <img src="/gopartbrasil_logo.jpeg" alt="Logo da Empresa" className="form-logo" />
+      <section className="go-academy-login-form-section">
+        <div className="go-academy-form-wrapper">
+         
+          <main className="go-academy-form-main">
+            <img src={barberLogo} alt="BarberAcademy Logo" className="go-academy-form-logo" />
             <h1>ACESSE E APROVEITE</h1>
             
-            {error && <div className="error-message">{error}</div>}
+            {error && <div className="go-academy-login-error">{error}</div>}
             
             <form onSubmit={handleSubmit}>
-              <div className="input-group">
-                <i className="fa fa-envelope input-icon"></i>
+              <div className="go-academy-input-group">
+                <i className="fa fa-envelope go-academy-input-icon"></i>
                 <input 
                   type="email" 
                   placeholder="E-mail"
-                  required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={loading}
                 />
               </div>
-              <div className="input-group">
-                <i className="fa fa-lock input-icon"></i>
+              <div className="go-academy-input-group">
+                <i className="fa fa-lock go-academy-input-icon"></i>
                 <input 
                   type={showPassword ? "text" : "password"}
                   placeholder="Senha"
-                  required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   disabled={loading}
                 />
                 <i 
-                  className={`fa ${showPassword ? 'fa-eye-slash' : 'fa-eye'} password-toggle`}
+                  className={`fa ${showPassword ? 'fa-eye-slash' : 'fa-eye'} go-academy-password-toggle`}
                   onClick={() => setShowPassword(!showPassword)}
                 ></i>
               </div>
               
               
               
-              <button type="submit" className="btn-acessar" disabled={loading}>
+              <button type="submit" className="go-academy-login-btn" disabled={loading}>
                 {loading ? 'ENTRANDO...' : 'ACESSAR'}
               </button>
             </form>
@@ -87,8 +81,8 @@ function LoginPage() {
       </section>
 
       {/* SEÇÃO DIREITA: A IMAGEM PROMOCIONAL */}
-      <section className="promo-section">
-        <img src="/gopartsW.png" className="promo-image" />
+      <section className="go-academy-login-promo-section">
+        <img src={barberLogo} className="go-academy-promo-image" alt="BarberAcademy Logo" />
       </section>
 
       <InstagramIcon />

@@ -1,358 +1,448 @@
-// database.js
-// Exporte aqui seus arrays de dados, por exemplo:
+// src/modules/go-academy/data/database.js
+// Base de dados dos tutoriais e módulos - BarberAcademy
 
 export const tutoriais = [
-  { id: '1', titulo: 'Tutorial 1', descricao: 'Acesse agora e confira nossas ofertas exclusivas. Clique aqui e conheça nosso produto completo. Entre na plataforma e aproveite os melhores preços. Descubra tudo sobre este item clicando aqui. Veja mais fotos e detalhes no link. Confira agora mesmo, estoque limitado. Aproveite esta oportunidade acessando já. Garanta o seu com apenas um clique. Saiba mais e compre com segurança aqui. Encontre tudo o que precisa neste anúncio.' },
-  { id: '2', titulo: 'Tutorial 2', descricao: 'Descrição do tutorial 2' },
-  { id: '3', titulo: 'Tutorial 3', descricao: 'Descubra novos conhecimentos e habilidades neste tutorial completo. Aprenda conceitos avançados e pratique com exercícios interativos. Desenvolva suas competências profissionais com conteúdo atualizado e metodologia comprovada.' },
+  { 
+    id: '1', 
+    titulo: 'Fundamentos da Barbearia', 
+    descricao: 'Técnicas básicas essenciais para todo barbeiro iniciante. Domine os cortes clássicos e fundamentos da profissão.', 
+    nivel: 'Iniciante',
+    duracao: '10 aulas'
+  },
+  { 
+    id: '2', 
+    titulo: 'Técnicas Avançadas de Corte', 
+    descricao: 'Cortes modernos e tendências. Aprenda fade, undercut, pompadour e designs criativos.', 
+    nivel: 'Intermediário',
+    duracao: '8 aulas'
+  },
+  { 
+    id: '3', 
+    titulo: 'Barba e Finalização Profissional', 
+    descricao: 'Técnicas de navalha, contorno perfeito e atendimento VIP. Eleve seu serviço ao próximo nível.', 
+    nivel: 'Avançado',
+    duracao: '6 aulas'
+  },
 ];
 
+// ============================================
+// TUTORIAL 1: FUNDAMENTOS DA BARBEARIA
+// ============================================
 export const modulosGestaoTempo = [
-  // 1º módulo: vídeo
-  { moduleId: 'mod1', type: 'video', title: 'Boas-vindas ao curso', status: 'A concluir', videoId: 'video-gestao-tempo', urlDoVideoEmbed: 'https://www.youtube.com/embed/Rj4rAuce0M0' },
-  // 2º módulo: atividade
-  { moduleId: 'mod2', type: 'atividade', title: 'Atividade: Princípios da gestão do tempo', status: 'A concluir',
+  // Módulo 1 - Vídeo
+  { 
+    moduleId: 'mod1', 
+    type: 'video', 
+    title: 'Apresentação: Bem-vindo à Barbearia Profissional', 
+    status: 'A concluir', 
+    videoId: 'video-fundamentos-01', 
+    urlDoVideoEmbed: 'https://www.youtube.com/watch?v=2PuFyjAs7JA',
+    duracao: '8 min',
+    ferramentas: 'Nenhuma',
+    nivel: 'Iniciante',
+    descricao: 'Introdução ao curso e visão geral da carreira de barbeiro profissional.'
+  },
+  // Módulo 2 - Atividade
+  { 
+    moduleId: 'mod2', 
+    type: 'atividade', 
+    title: 'Atividade: Conhecendo seu Kit Profissional', 
+    status: 'A concluir',
     questions: [
       {
-        question: 'Qual é o principal objetivo da gestão do tempo?',
-        options: ['Aumentar o estresse', 'Melhorar a produtividade', 'Reduzir o tempo de lazer', 'Aumentar a quantidade de tarefas'],
+        question: 'Qual é a ferramenta MAIS importante para um barbeiro iniciante?',
+        options: ['Tesoura de corte', 'Máquina profissional', 'Navalha', 'Pente fino'],
         answer: 1
       },
       {
-        question: 'Qual destas NÃO é uma técnica de gestão do tempo?',
-        options: ['Pomodoro', 'Lei de Parkinson', 'Coma o Sapo', 'Procrastinação'],
-        answer: 3
-      }
-    ]
-  },
-  // 3º módulo: vídeo
-  { moduleId: 'mod3', type: 'video', title: 'Como a falta de gerenciamento de tempo afeta sua vida', status: 'A concluir', videoId: 'video-gestao-tempo', urlDoVideoEmbed: 'https://www.youtube.com/embed/Rj4rAuce0M0' },
-  // 4º módulo: atividade
-  { moduleId: 'mod4', type: 'atividade', title: 'Atividade: Benefícios do gerenciamento do tempo', status: 'A concluir',
-    questions: [
-      {
-        question: 'Qual é um benefício direto de um bom gerenciamento do tempo?',
-        options: ['Mais estresse', 'Menos produtividade', 'Mais tempo livre', 'Mais tarefas acumuladas'],
-        answer: 2
-      },
-      {
-        question: 'O que pode ser evitado com uma boa gestão do tempo?',
-        options: ['Procrastinação', 'Organização', 'Foco', 'Resultados positivos'],
-        answer: 0
-      }
-    ]
-  },
-  // 5º módulo: vídeo
-  { moduleId: 'mod5', type: 'video', title: 'Técnicas e dicas para gerenciamento do tempo', status: 'A concluir', videoId: 'video-gestao-tempo', urlDoVideoEmbed: 'https://www.youtube.com/embed/Rj4rAuce0M0' },
-  // 6º módulo: atividade
-  { moduleId: 'mod6', type: 'atividade', title: 'Atividade: Técnicas de gerenciamento', status: 'A concluir',
-    questions: [
-      {
-        question: 'O que é a Técnica Pomodoro?',
-        options: ['Trabalhar sem pausas', 'Dividir o tempo em blocos com intervalos', 'Fazer tudo ao mesmo tempo', 'Evitar tarefas importantes'],
+        question: 'Com que frequência você deve limpar e desinfetar suas ferramentas?',
+        options: ['Uma vez por semana', 'Após cada cliente', 'No fim do dia', 'Quando lembrar'],
         answer: 1
       },
       {
-        question: 'A Lei de Parkinson afirma que:',
-        options: ['O trabalho se expande para preencher o tempo disponível', 'Devemos procrastinar sempre', 'Devemos evitar pausas', 'Devemos trabalhar sem planejamento'],
-        answer: 0
-      }
-    ]
-  },
-  // 7º módulo: vídeo
-  { moduleId: 'mod7', type: 'video', title: 'Técnicas e dicas para gerenciamento do tempo | Técnica Pomodoro', status: 'A concluir', videoId: 'video-gestao-tempo', urlDoVideoEmbed: 'https://www.youtube.com/embed/Rj4rAuce0M0' },
-  // 8º módulo: atividade
-  { moduleId: 'mod8', type: 'atividade', title: 'Atividade: Quadrantes de Stephen Covey', status: 'A concluir',
-    questions: [
-      {
-        question: 'O que são os quadrantes de Stephen Covey?',
-        options: ['Método de priorização de tarefas', 'Técnica de procrastinação', 'Ferramenta de distração', 'Método de relaxamento'],
-        answer: 0
-      },
-      {
-        question: 'Qual quadrante devemos evitar?',
-        options: ['Importante e urgente', 'Não importante e urgente', 'Importante e não urgente', 'Não importante e não urgente'],
-        answer: 3
-      }
-    ]
-  },
-  // 9º módulo: vídeo
-  { moduleId: 'mod9', type: 'video', title: 'Técnicas e dicas para gerenciamento do tempo | Quadrantes de Stephen Covey', status: 'A concluir', videoId: 'video-gestao-tempo', urlDoVideoEmbed: 'https://www.youtube.com/embed/Rj4rAuce0M0' },
-  // 10º módulo: atividade
-  { moduleId: 'mod10', type: 'atividade', title: 'Atividade: Maus hábitos', status: 'A concluir',
-    questions: [
-      {
-        question: 'Qual é um mau hábito que prejudica a gestão do tempo?',
-        options: ['Planejar o dia', 'Fazer pausas', 'Procrastinar', 'Definir prioridades'],
-        answer: 2
-      },
-      {
-        question: 'Como podemos evitar maus hábitos?',
-        options: ['Ignorando-os', 'Reconhecendo e mudando comportamentos', 'Fazendo mais tarefas', 'Trabalhando sem parar'],
-        answer: 1
-      }
-    ]
-  },
-  // 11º módulo: vídeo
-  { moduleId: 'mod11', type: 'video', title: 'Manter-se motivado em sua gestão do tempo', status: 'A concluir', videoId: 'video-gestao-tempo', urlDoVideoEmbed: 'https://www.youtube.com/embed/Rj4rAuce0M0' },
-  // 12º módulo: atividade
-  { moduleId: 'mod12', type: 'atividade', title: 'Atividade: Motivação', status: 'A concluir',
-    questions: [
-      {
-        question: 'O que pode ajudar a manter a motivação?',
-        options: ['Falta de objetivos', 'Definir metas claras', 'Procrastinação', 'Desorganização'],
-        answer: 1
-      },
-      {
-        question: 'Por que é importante celebrar pequenas conquistas?',
-        options: ['Para perder tempo', 'Para se desmotivar', 'Para manter o foco e a motivação', 'Para procrastinar'],
+        question: 'Qual a voltagem ideal para máquinas profissionais no Brasil?',
+        options: ['110V', '220V', 'Bivolt', 'Depende da região'],
         answer: 2
       }
     ]
   },
-  // 13º módulo: vídeo
-  { moduleId: 'mod13', type: 'video', title: 'Exercícios', status: 'A concluir', videoId: 'video-gestao-tempo', urlDoVideoEmbed: 'https://www.youtube.com/embed/Rj4rAuce0M0' },
-  // 14º módulo: atividade
-  { moduleId: 'mod14', type: 'atividade', title: 'Atividade: Encerramento', status: 'A concluir',
+  // Módulo 3 - Vídeo
+  { 
+    moduleId: 'mod3', 
+    type: 'video', 
+    title: 'Técnica Básica: Tesoura e Pente', 
+    status: 'A concluir', 
+    videoId: 'video-fundamentos-02', 
+    urlDoVideoEmbed: 'https://www.youtube.com/watch?v=2PuFyjAs7JA',
+    duracao: '15 min',
+    ferramentas: 'Tesoura de corte, pente de corte',
+    nivel: 'Iniciante',
+    descricao: 'Aprenda a posição correta das mãos e movimentos básicos com tesoura e pente.'
+  },
+  // Módulo 4 - Atividade
+  { 
+    moduleId: 'mod4', 
+    type: 'atividade', 
+    title: 'Atividade: Posicionamento e Ergonomia', 
+    status: 'A concluir',
     questions: [
       {
-        question: 'O que você aprendeu sobre gestão do tempo?',
-        options: ['Nada', 'A importância de planejar', 'A procrastinar mais', 'A evitar organização'],
-        answer: 1
+        question: 'Qual o ângulo correto para segurar a tesoura de corte?',
+        options: ['45 graus', '90 graus', '30 graus', '180 graus'],
+        answer: 0
       },
       {
-        question: 'Qual será seu próximo passo?',
-        options: ['Não fazer nada', 'Aplicar as técnicas aprendidas', 'Esquecer o curso', 'Procrastinar'],
+        question: 'Por que a ergonomia é importante para barbeiros?',
+        options: ['Para parecer profissional', 'Para evitar lesões e fadiga', 'Para cortar mais rápido', 'Não é importante'],
         answer: 1
       }
     ]
-  }
+  },
+  // Módulo 5 - Vídeo
+  { 
+    moduleId: 'mod5', 
+    type: 'video', 
+    title: 'Corte Clássico: Máquina na Régua', 
+    status: 'A concluir', 
+    videoId: 'video-fundamentos-03', 
+    urlDoVideoEmbed: 'https://www.youtube.com/watch?v=2PuFyjAs7JA',
+    duracao: '12 min',
+    ferramentas: 'Máquina, pentes guia (3mm, 6mm, 9mm)',
+    nivel: 'Iniciante',
+    descricao: 'Domine o corte tradicional com máquina usando diferentes pentes guia.'
+  },
+  // Módulo 6 - Atividade
+  { 
+    moduleId: 'mod6', 
+    type: 'atividade', 
+    title: 'Atividade: Numeração de Pentes', 
+    status: 'A concluir',
+    questions: [
+      {
+        question: 'Qual pente deixa o cabelo com 9mm?',
+        options: ['Pente #1', 'Pente #2', 'Pente #3', 'Pente #4'],
+        answer: 2
+      },
+      {
+        question: 'Para um degradê suave, qual a diferença ideal entre os pentes?',
+        options: ['1 número', '2 números', '3 números', 'Qualquer um'],
+        answer: 0
+      }
+    ]
+  },
+  // Módulo 7 - Vídeo
+  { 
+    moduleId: 'mod7', 
+    type: 'video', 
+    title: 'Degradê Básico: Fundamentos do Fade', 
+    status: 'A concluir', 
+    videoId: 'video-fundamentos-04', 
+    urlDoVideoEmbed: 'https://www.youtube.com/watch?v=2PuFyjAs7JA',
+    duracao: '18 min',
+    ferramentas: 'Máquina com pentes 1, 2, 3',
+    nivel: 'Iniciante',
+    descricao: 'Aprenda a criar transições suaves entre comprimentos diferentes.'
+  },
+  // Módulo 8 - Atividade
+  { 
+    moduleId: 'mod8', 
+    type: 'atividade', 
+    title: 'Atividade: Teoria do Degradê', 
+    status: 'A concluir',
+    questions: [
+      {
+        question: 'Qual a direção correta para iniciar um degradê?',
+        options: ['De cima para baixo', 'De baixo para cima', 'Das laterais para o centro', 'Do centro para fora'],
+        answer: 1
+      },
+      {
+        question: 'O que significa "fade" na barbearia?',
+        options: ['Corte reto', 'Transição gradual', 'Cabelo raspado', 'Corte longo'],
+        answer: 1
+      }
+    ]
+  },
+  // Módulo 9 - Vídeo
+  { 
+    moduleId: 'mod9', 
+    type: 'video', 
+    title: 'Finalização: Contorno e Acabamento', 
+    status: 'A concluir', 
+    videoId: 'video-fundamentos-05', 
+    urlDoVideoEmbed: 'https://www.youtube.com/watch?v=2PuFyjAs7JA',
+    duracao: '10 min',
+    ferramentas: 'Máquina de acabamento, navalha',
+    nivel: 'Iniciante',
+    descricao: 'Técnicas para dar um acabamento profissional e limpo.'
+  },
+  // Módulo 10 - Atividade Final
+  { 
+    moduleId: 'mod10', 
+    type: 'atividade', 
+    title: 'Avaliação Final: Fundamentos', 
+    status: 'A concluir',
+    questions: [
+      {
+        question: 'Qual ferramenta é melhor para contornos precisos?',
+        options: ['Máquina de corte', 'Tesoura', 'Máquina de acabamento', 'Pente'],
+        answer: 2
+      },
+      {
+        question: 'O que você deve fazer SEMPRE antes de iniciar um corte?',
+        options: ['Lavar as mãos', 'Consultar o cliente', 'Ligar a máquina', 'Cobrir o cliente'],
+        answer: 1
+      },
+      {
+        question: 'Quantos minutos em média leva um corte básico profissional?',
+        options: ['5-10 min', '15-25 min', '30-45 min', '1 hora'],
+        answer: 1
+      }
+    ]
+  },
 ];
 
+// ============================================
+// TUTORIAL 2: TÉCNICAS AVANÇADAS DE CORTE
+// ============================================
 export const modulosTutorial2 = [
-  // 1º módulo: vídeo
-  { moduleId: 'mod1', type: 'video', title: 'Boas-vindas ao curso', status: 'A concluir', videoId: 'video-tutorial2', urlDoVideoEmbed: 'https://www.youtube.com/embed/1_gvNAa0qyM' },
-  // 2º módulo: atividade
-  { moduleId: 'mod2', type: 'atividade', title: 'Atividade: Princípios da gestão do tempo', status: 'A concluir',
-    questions: [
-      {
-        question: 'Qual é o principal objetivo da gestão do tempo?',
-        options: ['Aumentar o estresse', 'Melhorar a produtividade', 'Reduzir o tempo de lazer', 'Aumentar a quantidade de tarefas'],
-        answer: 1
-      },
-      {
-        question: 'Qual destas NÃO é uma técnica de gestão do tempo?',
-        options: ['Pomodoro', 'Lei de Parkinson', 'Coma o Sapo', 'Procrastinação'],
-        answer: 3
-      }
-    ]
+  // Módulo 1 - Vídeo
+  { 
+    moduleId: 'adv1', 
+    type: 'video', 
+    title: 'Fade Profissional: Low, Mid e High', 
+    status: 'A concluir', 
+    videoId: 'video-avancado-01', 
+    urlDoVideoEmbed: 'https://www.youtube.com/watch?v=2PuFyjAs7JA',
+    duracao: '20 min',
+    ferramentas: 'Máquina profissional, pentes 0.5 a 3',
+    nivel: 'Intermediário',
+    descricao: 'Domine os três tipos de fade e quando aplicar cada um.'
   },
-  // 3º módulo: vídeo
-  { moduleId: 'mod3', type: 'video', title: 'Como a falta de gerenciamento de tempo afeta sua vida', status: 'A concluir', videoId: 'video-tutorial2', urlDoVideoEmbed: 'https://www.youtube.com/embed/1_gvNAa0qyM' },
-  // 4º módulo: atividade
-  { moduleId: 'mod4', type: 'atividade', title: 'Atividade: Benefícios do gerenciamento do tempo', status: 'A concluir',
+  // Módulo 2 - Atividade
+  { 
+    moduleId: 'adv2', 
+    type: 'atividade', 
+    title: 'Atividade: Tipos de Fade', 
+    status: 'A concluir',
     questions: [
       {
-        question: 'Qual é um benefício direto de um bom gerenciamento do tempo?',
-        options: ['Mais estresse', 'Menos produtividade', 'Mais tempo livre', 'Mais tarefas acumuladas'],
+        question: 'Onde começa um "Low Fade"?',
+        options: ['No topo da cabeça', 'Próximo à orelha', 'Bem baixo, perto da nuca', 'No meio da cabeça'],
         answer: 2
       },
       {
-        question: 'O que pode ser evitado com uma boa gestão do tempo?',
-        options: ['Procrastinação', 'Organização', 'Foco', 'Resultados positivos'],
-        answer: 0
-      }
-    ]
-  },
-  // 5º módulo: vídeo
-  { moduleId: 'mod5', type: 'video', title: 'Técnicas e dicas para gerenciamento do tempo', status: 'A concluir', videoId: 'video-tutorial2', urlDoVideoEmbed: 'https://www.youtube.com/embed/1_gvNAa0qyM' },
-  // 6º módulo: atividade
-  { moduleId: 'mod6', type: 'atividade', title: 'Atividade: Técnicas de gerenciamento', status: 'A concluir',
-    questions: [
-      {
-        question: 'O que é a Técnica Pomodoro?',
-        options: ['Trabalhar sem pausas', 'Dividir o tempo em blocos com intervalos', 'Fazer tudo ao mesmo tempo', 'Evitar tarefas importantes'],
-        answer: 1
-      },
-      {
-        question: 'A Lei de Parkinson afirma que:',
-        options: ['O trabalho se expande para preencher o tempo disponível', 'Devemos procrastinar sempre', 'Devemos evitar pausas', 'Devemos trabalhar sem planejamento'],
-        answer: 0
-      }
-    ]
-  },
-  // 7º módulo: vídeo
-  { moduleId: 'mod7', type: 'video', title: 'Técnicas e dicas para gerenciamento do tempo | Técnica Pomodoro', status: 'A concluir', videoId: 'video-tutorial2', urlDoVideoEmbed: 'https://www.youtube.com/embed/1_gvNAa0qyM' },
-  // 8º módulo: atividade
-  { moduleId: 'mod8', type: 'atividade', title: 'Atividade: Quadrantes de Stephen Covey', status: 'A concluir',
-    questions: [
-      {
-        question: 'O que são os quadrantes de Stephen Covey?',
-        options: ['Método de priorização de tarefas', 'Técnica de procrastinação', 'Ferramenta de distração', 'Método de relaxamento'],
-        answer: 0
-      },
-      {
-        question: 'Qual quadrante devemos evitar?',
-        options: ['Importante e urgente', 'Não importante e urgente', 'Importante e não urgente', 'Não importante e não urgente'],
-        answer: 3
-      }
-    ]
-  },
-  // 9º módulo: vídeo
-  { moduleId: 'mod9', type: 'video', title: 'Técnicas e dicas para gerenciamento do tempo | Quadrantes de Stephen Covey', status: 'A concluir', videoId: 'video-tutorial2', urlDoVideoEmbed: 'https://www.youtube.com/embed/1_gvNAa0qyM' },
-  // 10º módulo: atividade
-  { moduleId: 'mod10', type: 'atividade', title: 'Atividade: Maus hábitos', status: 'A concluir',
-    questions: [
-      {
-        question: 'Qual é um mau hábito que prejudica a gestão do tempo?',
-        options: ['Planejar o dia', 'Fazer pausas', 'Procrastinar', 'Definir prioridades'],
-        answer: 2
-      },
-      {
-        question: 'Como podemos evitar maus hábitos?',
-        options: ['Ignorando-os', 'Reconhecendo e mudando comportamentos', 'Fazendo mais tarefas', 'Trabalhando sem parar'],
+        question: 'Qual fade é mais versátil para diferentes estilos?',
+        options: ['Low Fade', 'Mid Fade', 'High Fade', 'Skin Fade'],
         answer: 1
       }
     ]
   },
-  // 11º módulo: vídeo
-  { moduleId: 'mod11', type: 'video', title: 'Manter-se motivado em sua gestão do tempo', status: 'A concluir', videoId: 'video-tutorial2', urlDoVideoEmbed: 'https://www.youtube.com/embed/1_gvNAa0qyM' },
-  // 12º módulo: atividade
-  { moduleId: 'mod12', type: 'atividade', title: 'Atividade: Motivação', status: 'A concluir',
+  // Módulo 3 - Vídeo
+  { 
+    moduleId: 'adv3', 
+    type: 'video', 
+    title: 'Undercut Moderno e Variações', 
+    status: 'A concluir', 
+    videoId: 'video-avancado-02', 
+    urlDoVideoEmbed: 'https://www.youtube.com/watch?v=2PuFyjAs7JA',
+    duracao: '16 min',
+    ferramentas: 'Tesoura, máquina, pente',
+    nivel: 'Intermediário',
+    descricao: 'Crie undercuts impecáveis com diferentes comprimentos no topo.'
+  },
+  // Módulo 4 - Atividade
+  { 
+    moduleId: 'adv4', 
+    type: 'atividade', 
+    title: 'Atividade: Estrutura do Undercut', 
+    status: 'A concluir',
     questions: [
       {
-        question: 'O que pode ajudar a manter a motivação?',
-        options: ['Falta de objetivos', 'Definir metas claras', 'Procrastinação', 'Desorganização'],
+        question: 'O que caracteriza um undercut?',
+        options: ['Cabelo todo do mesmo tamanho', 'Laterais curtas e topo longo', 'Degradê suave', 'Cabelo raspado'],
         answer: 1
       },
       {
-        question: 'Por que é importante celebrar pequenas conquistas?',
-        options: ['Para perder tempo', 'Para se desmotivar', 'Para manter o foco e a motivação', 'Para procrastinar'],
+        question: 'Qual produto é ideal para finalizar um undercut com volume?',
+        options: ['Gel', 'Pomada', 'Cera', 'Spray fixador'],
         answer: 2
       }
     ]
   },
-  // 13º módulo: vídeo
-  { moduleId: 'mod13', type: 'video', title: 'Exercícios', status: 'A concluir', videoId: 'video-tutorial2', urlDoVideoEmbed: 'https://www.youtube.com/embed/1_gvNAa0qyM' },
-  // 14º módulo: atividade
-  { moduleId: 'mod14', type: 'atividade', title: 'Atividade: Encerramento', status: 'A concluir',
+  // Módulo 5 - Vídeo
+  { 
+    moduleId: 'adv5', 
+    type: 'video', 
+    title: 'Pompadour Clássico e Contemporâneo', 
+    status: 'A concluir', 
+    videoId: 'video-avancado-03', 
+    urlDoVideoEmbed: 'https://www.youtube.com/watch?v=2PuFyjAs7JA',
+    duracao: '22 min',
+    ferramentas: 'Tesoura, secador, escova',
+    nivel: 'Intermediário',
+    descricao: 'Aprenda o corte pompadour desde a base até a finalização.'
+  },
+  // Módulo 6 - Atividade
+  { 
+    moduleId: 'adv6', 
+    type: 'atividade', 
+    title: 'Atividade: Estilos Vintage', 
+    status: 'A concluir',
     questions: [
       {
-        question: 'O que você aprendeu sobre gestão do tempo?',
-        options: ['Nada', 'A importância de planejar', 'A procrastinar mais', 'A evitar organização'],
+        question: 'Qual a característica principal do pompadour?',
+        options: ['Cabelo para trás', 'Volume frontal elevado', 'Laterais raspadas', 'Franja reta'],
         answer: 1
       },
       {
-        question: 'Qual será seu próximo passo?',
-        options: ['Não fazer nada', 'Aplicar as técnicas aprendidas', 'Esquecer o curso', 'Procrastinar'],
+        question: 'Que tipo de cabelo se adapta melhor ao pompadour?',
+        options: ['Muito crespo', 'Liso ou ondulado', 'Muito fino', 'Cacheado apertado'],
         answer: 1
       }
     ]
-  }
+  },
+  // Módulo 7 - Vídeo
+  { 
+    moduleId: 'adv7', 
+    type: 'video', 
+    title: 'Designs e Riscos Criativos', 
+    status: 'A concluir', 
+    videoId: 'video-avancado-04', 
+    urlDoVideoEmbed: 'https://www.youtube.com/watch?v=2PuFyjAs7JA',
+    duracao: '14 min',
+    ferramentas: 'Máquina de acabamento, caneta de desenho',
+    nivel: 'Intermediário',
+    descricao: 'Técnicas para criar designs e riscos perfeitos.'
+  },
+  // Módulo 8 - Avaliação Final
+  { 
+    moduleId: 'adv8', 
+    type: 'atividade', 
+    title: 'Avaliação Final: Técnicas Avançadas', 
+    status: 'A concluir',
+    questions: [
+      {
+        question: 'Qual a ferramenta ideal para fazer riscos?',
+        options: ['Tesoura', 'Máquina comum', 'Máquina de acabamento', 'Navalha'],
+        answer: 2
+      },
+      {
+        question: 'Como evitar que um risco "cresça" rápido?',
+        options: ['Fazer mais fundo', 'Usar navalha', 'Orientar o cliente sobre manutenção', 'Não tem como'],
+        answer: 2
+      },
+      {
+        question: 'Qual corte exige mais habilidade com tesoura?',
+        options: ['Fade', 'Undercut', 'Pompadour', 'Máquina na régua'],
+        answer: 2
+      }
+    ]
+  },
 ];
 
-
+// ============================================
+// TUTORIAL 3: BARBA E FINALIZAÇÃO PROFISSIONAL
+// ============================================
 export const modulosTutorial3 = [
-  // 1º módulo: vídeo
-  { moduleId: 'mod1', type: 'video', title: 'Introdução ao Tutorial 3', status: 'A concluir', videoId: 'video-tutorial3', urlDoVideoEmbed: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
-  // 2º módulo: atividade
-  { moduleId: 'mod2', type: 'atividade', title: 'Atividade: Conceitos Básicos', status: 'A concluir',
+  // Módulo 1 - Vídeo
+  { 
+    moduleId: 'barba1', 
+    type: 'video', 
+    title: 'Anatomia da Barba: Crescimento e Estrutura', 
+    status: 'A concluir', 
+    videoId: 'video-barba-01', 
+    urlDoVideoEmbed: 'https://www.youtube.com/watch?v=2PuFyjAs7JA',
+    duracao: '10 min',
+    ferramentas: 'Nenhuma',
+    nivel: 'Avançado',
+    descricao: 'Entenda como a barba cresce e como trabalhar com diferentes tipos.'
+  },
+  // Módulo 2 - Atividade
+  { 
+    moduleId: 'barba2', 
+    type: 'atividade', 
+    title: 'Atividade: Tipos de Barba', 
+    status: 'A concluir',
     questions: [
       {
-        question: 'Qual é o objetivo principal deste tutorial?',
-        options: ['Aprender conceitos avançados', 'Desenvolver novas habilidades', 'Praticar exercícios', 'Todas as opções acima'],
+        question: 'Qual tipo de barba combina com rosto redondo?',
+        options: ['Barba cheia e redonda', 'Barba pontuda/angular', 'Cavanhaque', 'Bigode fino'],
+        answer: 1
+      },
+      {
+        question: 'Quantos dias em média para a barba crescer após o corte?',
+        options: ['2-3 dias', '7-10 dias', '15-20 dias', '30 dias'],
+        answer: 2
+      }
+    ]
+  },
+  // Módulo 3 - Vídeo
+  { 
+    moduleId: 'barba3', 
+    type: 'video', 
+    title: 'Técnica de Navalha: Segurança e Precisão', 
+    status: 'A concluir', 
+    videoId: 'video-barba-02', 
+    urlDoVideoEmbed: 'https://www.youtube.com/watch?v=2PuFyjAs7JA',
+    duracao: '18 min',
+    ferramentas: 'Navalha profissional, espuma de barbear',
+    nivel: 'Avançado',
+    descricao: 'Aprenda a usar a navalha com segurança e criar contornos perfeitos.'
+  },
+  // Módulo 4 - Atividade
+  { 
+    moduleId: 'barba4', 
+    type: 'atividade', 
+    title: 'Atividade: Segurança com Navalha', 
+    status: 'A concluir',
+    questions: [
+      {
+        question: 'Qual o ângulo correto da navalha na pele?',
+        options: ['90 graus', '30 graus', '45 graus', '10 graus'],
+        answer: 1
+      },
+      {
+        question: 'O que fazer se cortar o cliente acidentalmente?',
+        options: ['Ignorar', 'Parar e aplicar antisséptico', 'Continuar rápido', 'Pedir desculpas só'],
+        answer: 1
+      }
+    ]
+  },
+  // Módulo 5 - Vídeo
+  { 
+    moduleId: 'barba5', 
+    type: 'video', 
+    title: 'Contorno Perfeito e Degradê de Barba', 
+    status: 'A concluir', 
+    videoId: 'video-barba-03', 
+    urlDoVideoEmbed: 'https://www.youtube.com/watch?v=2PuFyjAs7JA',
+    duracao: '16 min',
+    ferramentas: 'Máquina, navalha, pente',
+    nivel: 'Avançado',
+    descricao: 'Crie linhas precisas e degradês suaves na barba.'
+  },
+  // Módulo 6 - Avaliação Final
+  { 
+    moduleId: 'barba6', 
+    type: 'atividade', 
+    title: 'Avaliação Final: Mestre da Barba', 
+    status: 'A concluir',
+    questions: [
+      {
+        question: 'Qual produto usar para amaciar a barba antes do corte?',
+        options: ['Shampoo comum', 'Óleo de barba', 'Gel', 'Nada'],
+        answer: 1
+      },
+      {
+        question: 'Como cobrar por um serviço de barba profissional?',
+        options: ['Metade do corte', 'Mesmo preço do corte', 'O dobro do corte', 'Depende da barba'],
         answer: 3
       },
       {
-        question: 'O que é importante para o aprendizado?',
-        options: ['Prática constante', 'Teoria apenas', 'Memorização', 'Sorte'],
-        answer: 0
-      }
-    ]
-  },
-  // 3º módulo: vídeo
-  { moduleId: 'mod3', type: 'video', title: 'Fundamentos e Princípios', status: 'A concluir', videoId: 'video-tutorial3', urlDoVideoEmbed: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
-  // 4º módulo: atividade
-  { moduleId: 'mod4', type: 'atividade', title: 'Atividade: Aplicação Prática', status: 'A concluir',
-    questions: [
-      {
-        question: 'Como aplicar os conceitos aprendidos?',
-        options: ['Na teoria apenas', 'Na prática diária', 'Esquecendo-os', 'Ignorando-os'],
-        answer: 1
-      },
-      {
-        question: 'Qual é a importância da prática?',
-        options: ['Nenhuma', 'Reforça o aprendizado', 'Causa confusão', 'Perde tempo'],
+        question: 'Qual o diferencial de um atendimento VIP?',
+        options: ['Preço mais caro', 'Toalha quente, massagem, produtos premium', 'Corte mais rápido', 'Mais produtos no cabelo'],
         answer: 1
       }
     ]
   },
-  // 5º módulo: vídeo
-  { moduleId: 'mod5', type: 'video', title: 'Exemplos e Casos Práticos', status: 'A concluir', videoId: 'video-tutorial3', urlDoVideoEmbed: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
-  // 6º módulo: atividade
-  { moduleId: 'mod6', type: 'atividade', title: 'Atividade: Análise de Casos', status: 'A concluir',
-    questions: [
-      {
-        question: 'O que os casos práticos ajudam a desenvolver?',
-        options: ['Confusão', 'Compreensão aplicada', 'Memorização', 'Esquecimento'],
-        answer: 1
-      },
-      {
-        question: 'Como analisar um caso prático?',
-        options: ['Ignorando detalhes', 'Observando padrões e aplicando conceitos', 'Copiando respostas', 'Adivinhando'],
-        answer: 1
-      }
-    ]
-  },
-  // 7º módulo: vídeo
-  { moduleId: 'mod7', type: 'video', title: 'Ferramentas e Recursos', status: 'A concluir', videoId: 'video-tutorial3', urlDoVideoEmbed: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
-  // 8º módulo: atividade
-  { moduleId: 'mod8', type: 'atividade', title: 'Atividade: Utilização de Ferramentas', status: 'A concluir',
-    questions: [
-      {
-        question: 'Por que as ferramentas são importantes?',
-        options: ['Complicam o processo', 'Facilitam e otimizam o trabalho', 'São desnecessárias', 'Causam atrasos'],
-        answer: 1
-      },
-      {
-        question: 'Como escolher a ferramenta certa?',
-        options: ['Aleatoriamente', 'Baseado nas necessidades específicas', 'A mais cara', 'A mais simples sempre'],
-        answer: 1
-      }
-    ]
-  },
-  // 9º módulo: vídeo
-  { moduleId: 'mod9', type: 'video', title: 'Tendências e Inovações', status: 'A concluir', videoId: 'video-tutorial3', urlDoVideoEmbed: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
-  // 10º módulo: atividade
-  { moduleId: 'mod10', type: 'atividade', title: 'Atividade: Inovação e Tendências', status: 'A concluir',
-    questions: [
-      {
-        question: 'Por que acompanhar tendências?',
-        options: ['Para ficar desatualizado', 'Para se manter competitivo', 'Para complicar processos', 'Para ignorar mudanças'],
-        answer: 1
-      },
-      {
-        question: 'Como identificar uma tendência relevante?',
-        options: ['Ignorando o mercado', 'Analisando impacto e aplicabilidade', 'Seguindo modas passageiras', 'Copiando concorrentes cegamente'],
-        answer: 1
-      }
-    ]
-  },
-  // 11º módulo: vídeo
-  { moduleId: 'mod11', type: 'video', title: 'Conclusão e Próximos Passos', status: 'A concluir', videoId: 'video-tutorial3', urlDoVideoEmbed: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
-  // 12º módulo: atividade
-  { moduleId: 'mod12', type: 'atividade', title: 'Atividade: Planejamento de Implementação', status: 'A concluir',
-    questions: [
-      {
-        question: 'Qual é o próximo passo após o curso?',
-        options: ['Esquecer tudo', 'Aplicar os conhecimentos na prática', 'Não fazer nada', 'Esperar mais cursos'],
-        answer: 1
-      },
-      {
-        question: 'Como manter o aprendizado contínuo?',
-        options: ['Parando de estudar', 'Buscando novas oportunidades de aprendizado', 'Ignorando atualizações', 'Repetindo o mesmo sempre'],
-        answer: 1
-      }
-    ]
-  }
 ];

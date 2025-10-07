@@ -1,127 +1,155 @@
+// src/utils/progressUtils.js
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
-import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 
-// Salvar progresso do usuário no Firestore
+/**
+ * Salva o progresso do usuário no Firebase
+ * @param {string} userId - ID do usuário
+ * @param {string} tutorialId - ID do tutorial
+ * @param {string} moduleId - ID do módulo
+ * @param {boolean} completed - Se o módulo foi completado
+ */
 export const saveUserProgress = async (userId, tutorialId, moduleId, completed = false) => {
   try {
-    const progressRef = doc(db, 'userProgress', `${userId}_${tutorialId}`);
-    const progressSnap = await getDoc(progressRef);
-
-    let progressData = {
-      userId,
-      tutorialId,
-      completedModules: [],
-      moduleStatuses: {},
-      lastUpdated: new Date()
+    console.log('Salvando progresso:', { userId, tutorialId, moduleId, completed });
+    
+    // Salva em um único documento por tutorial
+    const tutorialRef = doc(db, 'userProgress', userId, 'tutorials', tutorialId);
+    
+    // Primeiro carrega o progresso atual
+    const tutorialDoc = await getDoc(tutorialRef);
+    const currentData = tutorialDoc.exists() ? tutorialDoc.data() : { modules: {} };
+    
+    // Atualiza o módulo específico
+    currentData.modules = currentData.modules || {};
+    currentData.modules[moduleId] = {
+      status: completed ? 'completed' : 'in-progress',
+      completedAt: completed ? new Date().toISOString() : null,
+      updatedAt: new Date().toISOString()
     };
-
-    if (progressSnap.exists()) {
-      progressData = progressSnap.data();
-    }
-
-    // Adiciona módulo aos completados apenas quando a atividade é completada
-    if (completed && !progressData.completedModules.includes(moduleId)) {
-      progressData.completedModules.push(moduleId);
-    }
-
-    // Atualiza status do módulo se especificado (para atividades completadas)
-    if (completed) {
-      progressData.moduleStatuses = progressData.moduleStatuses || {};
-      progressData.moduleStatuses[moduleId] = 'completed';
-    }
-
-    progressData.lastUpdated = new Date();
-
-    await setDoc(progressRef, progressData);
+    
+    // Salva de volta
+    await setDoc(tutorialRef, {
+      ...currentData,
+      updatedAt: new Date().toISOString()
+    }, { merge: true });
+    
+    console.log('Progresso salvo com sucesso!');
+    return true;
   } catch (error) {
     console.error('Erro ao salvar progresso:', error);
-  }
-};
-
-// Carregar progresso do usuário do Firestore
-export const loadUserProgress = async (userId, tutorialId) => {
-  try {
-    const progressRef = doc(db, 'userProgress', `${userId}_${tutorialId}`);
-    const progressSnap = await getDoc(progressRef);
-
-    if (progressSnap.exists()) {
-      const data = progressSnap.data();
-      return {
-        completedModules: data.completedModules || [],
-        moduleStatuses: data.moduleStatuses || {},
-        lastUpdated: data.lastUpdated
-      };
-    }
-
-    console.log('Nenhum progresso encontrado, retornando vazio');
-    return {
-      completedModules: [],
-      moduleStatuses: {},
-      lastUpdated: null
-    };
-  } catch (error) {
-    console.error('Erro ao carregar progresso:', error);
-    return {
-      completedModules: [],
-      moduleStatuses: {},
-      lastUpdated: null
-    };
-  }
-};
-
-// Verificar se um módulo está completo
-export const isModuleCompleted = async (userId, tutorialId, moduleId) => {
-  try {
-    const progress = await loadUserProgress(userId, tutorialId);
-    return progress.moduleStatuses[moduleId] === 'completed';
-  } catch (error) {
-    console.error('Erro ao verificar status do módulo:', error);
     return false;
   }
 };
 
-// Função para validar e corrigir a ordem dos módulos
-// Garante que sempre comece com vídeo e alterne: vídeo -> atividade -> vídeo -> atividade
+/**
+ * Carrega o progresso do usuário do Firebase
+ * @param {string} userId - ID do usuário
+ * @param {string} tutorialId - ID do tutorial
+ * @param {string} moduleId - ID do módulo (opcional)
+ * @returns {object|null} - Dados do progresso ou null se não existir
+ */
+export const loadUserProgress = async (userId, tutorialId, moduleId) => {
+  try {
+    const tutorialRef = doc(db, 'userProgress', userId, 'tutorials', tutorialId);
+    const tutorialDoc = await getDoc(tutorialRef);
+    
+    if (!tutorialDoc.exists()) {
+      return moduleId ? null : { completedModules: [], moduleStatuses: {} };
+    }
+    
+    const data = tutorialDoc.data();
+    const modules = data.modules || {};
+    
+    // Se moduleId foi fornecido, retorna só esse módulo
+    if (moduleId) {
+      return modules[moduleId] || null;
+    }
+    
+    // Se não, retorna o progresso de todo o tutorial
+    return loadTutorialProgress(userId, tutorialId);
+  } catch (error) {
+    console.error('Erro ao carregar progresso:', error);
+    return moduleId ? null : { completedModules: [], moduleStatuses: {} };
+  }
+};
+
+/**
+ * Carrega o progresso de todos os módulos de um tutorial
+ * @param {string} userId - ID do usuário
+ * @param {string} tutorialId - ID do tutorial
+ * @returns {object} - Dados do progresso do tutorial
+ */
+export const loadTutorialProgress = async (userId, tutorialId) => {
+  try {
+    const tutorialRef = doc(db, 'userProgress', userId, 'tutorials', tutorialId);
+    const tutorialDoc = await getDoc(tutorialRef);
+    
+    if (!tutorialDoc.exists()) {
+      return {
+        completedModules: [],
+        moduleStatuses: {}
+      };
+    }
+    
+    const data = tutorialDoc.data();
+    const modules = data.modules || {};
+    
+    const completedModules = [];
+    const moduleStatuses = {};
+    
+    Object.entries(modules).forEach(([moduleId, moduleData]) => {
+      moduleStatuses[moduleId] = moduleData.status || 'not-started';
+      if (moduleData.status === 'completed') {
+        completedModules.push(moduleId);
+      }
+    });
+    
+    return {
+      completedModules,
+      moduleStatuses
+    };
+  } catch (error) {
+    // Silenciosamente retorna estrutura vazia para evitar logs repetitivos
+    return {
+      completedModules: [],
+      moduleStatuses: {}
+    };
+  }
+};
+
+/**
+ * Valida e ordena os módulos por ordem numérica
+ * @param {array} modules - Array de módulos
+ * @returns {array} - Array de módulos ordenados
+ */
 export const validateAndOrderModules = (modules) => {
-  if (!Array.isArray(modules) || modules.length === 0) {
-    return modules;
+  if (!Array.isArray(modules)) {
+    console.error('validateAndOrderModules: esperava um array, recebeu:', typeof modules);
+    return [];
   }
+  
+  // Ordena os módulos pela propriedade 'order' ou 'moduleId'
+  return modules.sort((a, b) => {
+    const orderA = a.order || parseInt(a.moduleId) || 0;
+    const orderB = b.order || parseInt(b.moduleId) || 0;
+    return orderA - orderB;
+  });
+};
 
-  // Criar uma cópia dos módulos para não modificar o original
-  const orderedModules = [...modules];
-
-  // Reordenar para garantir o padrão: vídeo -> atividade -> vídeo -> atividade
-  // Primeiro módulo deve sempre ser vídeo
-  let videoModules = orderedModules.filter(mod => mod.type === 'video');
-  let activityModules = orderedModules.filter(mod => mod.type === 'atividade');
-
-  const result = [];
-  let videoIndex = 0;
-  let activityIndex = 0;
-
-  // Sempre começar com vídeo
-  while (videoIndex < videoModules.length || activityIndex < activityModules.length) {
-    // Adicionar vídeo se disponível
-    if (videoIndex < videoModules.length) {
-      result.push(videoModules[videoIndex]);
-      videoIndex++;
-    }
-
-    // Adicionar atividade se disponível
-    if (activityIndex < activityModules.length) {
-      result.push(activityModules[activityIndex]);
-      activityIndex++;
-    }
-  }
-
-  // Verificar se a ordem está correta, se não estiver, usar a ordem corrigida
-  const currentOrder = orderedModules.map(mod => mod.type);
-  const expectedOrder = result.map(mod => mod.type);
-
-  if (JSON.stringify(currentOrder) !== JSON.stringify(expectedOrder)) {
-    console.warn('Ordem dos módulos corrigida para seguir padrão vídeo -> atividade');
-    return result;
-  }
-
-  return orderedModules;
+/**
+ * Calcula a porcentagem de progresso do usuário em um tutorial
+ * @param {array} modules - Array de módulos do tutorial
+ * @param {object} userProgress - Objeto com o progresso do usuário
+ * @returns {number} - Porcentagem de progresso (0-100)
+ */
+export const calculateProgress = (modules, userProgress) => {
+  if (!modules || modules.length === 0) return 0;
+  
+  const completedModules = modules.filter(module => {
+    const progress = userProgress?.[module.moduleId];
+    return progress?.status === 'completed';
+  });
+  
+  return Math.round((completedModules.length / modules.length) * 100);
 };

@@ -1,3 +1,4 @@
+// src/modules/go-academy/pages/PlayerPage/PlayerPage.jsx
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import './PlayerPage.css';
@@ -6,20 +7,24 @@ import { Spinner } from '../../components/Spinner/Spinner';
 import { useAuth } from '../../contexts/AuthContext';
 import { saveUserProgress, loadUserProgress, validateAndOrderModules } from '../../utils/progressUtils';
 import { modulosGestaoTempo, modulosTutorial2 } from '../../data/database';
-
-
+import goPartsWhiteLogo from '../../images/GoParts_Logo_23Q1_reduzida_branco.png';
+import SecureVideoPlayer from '../../components/SecureVideoPlayer';
 
 const PlayerPage = () => {
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const iframeRef = useRef(null);
   const navigate = useNavigate();
-  const { currentUser } = useAuth();
+  const { currentUser, logout } = useAuth();
   const modulo = location.state?.modulo;
   const [showNextButton, setShowNextButton] = useState(false);
   // tutorialId e moduleId podem vir da URL ou do objeto modulo
   const tutorialId = searchParams.get('tutorialId') || modulo?.tutorialId || 'default';
   const moduleId = modulo?.moduleId;
+
+  useEffect(() => {
+    document.title = `${modulo?.title || 'Aula'} - BarberAcademy`;
+  }, [modulo?.title]);
 
   // Função para encontrar o próximo módulo
   const getNextModule = (currentTutorialId, currentModuleId) => {
@@ -37,8 +42,12 @@ const PlayerPage = () => {
   // Estado para status do módulo
   const [status, setStatus] = useState('Estágio atual');
   const [pendingComplete, setPendingComplete] = useState(false);
-  const [videoLoading, setVideoLoading] = useState(true);
   const [quizLoading, setQuizLoading] = useState(false);
+
+  // Reseta showNextButton quando o módulo muda
+  useEffect(() => {
+    setShowNextButton(false);
+  }, [moduleId]);
 
   // Atualiza status ao montar e ao clicar em Próximo
   useEffect(() => {
@@ -58,12 +67,6 @@ const PlayerPage = () => {
       }
 
       setPendingComplete(false);
-      setVideoLoading(modulo?.type === 'video');
-
-      // Fallback: hide spinner after 2 seconds if onLoad doesn't fire
-      if (modulo?.type === 'video') {
-        setTimeout(() => setVideoLoading(false), 2000);
-      }
     };
 
     loadInitialStatus();
@@ -81,7 +84,10 @@ const PlayerPage = () => {
     }
   };
 
-  // Listener para detectar fim do vídeo YouTube
+  // NOTA: A detecção do fim do vídeo agora está dentro do SecureVideoPlayer
+  // através do callback onVideoEnd. O código abaixo foi substituído.
+  /*
+  // Listener para detectar fim do vídeo YouTube - ANTIGO
   useEffect(() => {
     if (!modulo) return;
     // Aguarda o iframe estar no DOM
@@ -112,6 +118,8 @@ const PlayerPage = () => {
     return () => clearInterval(interval);
     // eslint-disable-next-line
   }, [modulo, tutorialId, moduleId]);
+  */
+
 
   // Componente para atividades/quiz
   function QuizAtividade({ modulo, onComplete, status }) {
@@ -150,13 +158,13 @@ const PlayerPage = () => {
     };
 
     return (
-      <form className="atividade-quiz" onSubmit={handleSubmit} style={{background:'#fff', padding:'1.5rem', borderRadius:'12px', boxShadow:'0 2px 8px rgba(0,0,0,0.07)', marginTop:'1rem', width:'100%'}}>
-        <h2 style={{marginBottom:'1.5rem'}}>Atividade</h2>
+      <form className="go-academy-atividade-quiz" onSubmit={handleSubmit}>
+        <h2>Atividade</h2>
         {modulo.questions.map((q, idx) => (
-          <div key={idx} style={{marginBottom:'1.2rem'}}>
-            <div style={{fontWeight:600, marginBottom:6}}>{idx+1}. {q.question}</div>
+          <div key={idx} className="go-academy-quiz-question">
+            <div className="go-academy-quiz-question-text">{idx+1}. {q.question}</div>
             {q.options.map((opt, oIdx) => (
-              <label key={oIdx} style={{display:'block', marginBottom:4, cursor:'pointer'}}>
+              <label key={oIdx} className="go-academy-quiz-option">
                 <input
                   type="radio"
                   name={`q${idx}`}
@@ -164,7 +172,6 @@ const PlayerPage = () => {
                   checked={answers[idx] === oIdx}
                   onChange={() => handleSelect(idx, oIdx)}
                   disabled={submitted}
-                  style={{marginRight:8}}
                 />
                 {opt}
               </label>
@@ -172,22 +179,50 @@ const PlayerPage = () => {
           </div>
         ))}
         {!submitted && !loading && (
-          <button type="submit" style={{background:'#212529', color:'#fff', border:'none', borderRadius:'6px', padding:'0.7rem 2rem', fontSize:'1rem', fontWeight:600, cursor:'pointer', marginTop:'1rem'}}>Enviar respostas</button>
+          <button type="submit" className="go-academy-submit-btn">Enviar respostas</button>
         )}
         {loading && <Spinner />}
         {submitted && (
-          <div style={{marginTop:'1.2rem', fontWeight:600, color: score === modulo.questions.length ? '#28a745' : '#e67e22'}}>
+          <div className={`go-academy-quiz-result ${score === modulo.questions.length ? 'go-academy-quiz-success' : 'go-academy-quiz-retry'}`}>
             {score === modulo.questions.length ? (
               <>
                 Parabéns! Todas as respostas estão corretas.<br />
-                <button type="button" style={{background:'#212529', color:'#fff', border:'none', borderRadius:'6px', padding:'0.7rem 2rem', fontSize:'1rem', fontWeight:600, cursor:'pointer', marginTop:'1.2rem'}} onClick={async () => { await onComplete(); navigate(`/tutorial/${tutorialId}`); }}>
-                  Voltar aos módulos
-                </button>
+                <div className="go-academy-action-buttons">
+                  {(() => {
+                    const nextModule = getNextModule(tutorialId, moduleId);
+                    return nextModule ? (
+                      <button 
+                        type="button" 
+                        className="go-academy-next-btn"
+                        onClick={async () => { 
+                          await onComplete();
+                          navigate(`/curso-barbearia/player?tutorialId=${tutorialId}`, { 
+                            state: { modulo: { ...nextModule, tutorialId } } 
+                          });
+                        }}
+                      >
+                        Próxima Atividade
+                        <i className="fa fa-arrow-right" style={{marginLeft: '0.5rem'}}></i>
+                      </button>
+                    ) : null;
+                  })()}
+                  <button 
+                    type="button" 
+                    className="go-academy-back-btn" 
+                    onClick={async () => { 
+                      await onComplete(); 
+                      navigate(`/curso-barbearia/tutorial/${tutorialId}`); 
+                    }}
+                  >
+                    <i className="fa fa-arrow-left" style={{marginRight: '0.5rem'}}></i>
+                    Voltar aos módulos
+                  </button>
+                </div>
               </>
             ) : (
               <>
                 Você acertou {score} de {modulo.questions.length}. Corrija e tente novamente!<br />
-                <button type="button" style={{background:'#e67e22', color:'#fff', border:'none', borderRadius:'6px', padding:'0.7rem 2rem', fontSize:'1rem', fontWeight:600, cursor:'pointer', marginTop:'1.2rem'}} onClick={handleRetry}>
+                <button type="button" className="go-academy-retry-btn" onClick={handleRetry}>
                   Tentar novamente
                 </button>
               </>
@@ -200,57 +235,55 @@ const PlayerPage = () => {
 
   return (
     <>
-      <div className="player-page">
-      <header className="player-page-header">
-        <div className="player-header-content">
-          <div className="player-header-left">
-            <img src="/gopartswhitelogo.png" alt="Logo GoParts" className="player-header-logo" />
-          </div>
-          <div className="player-header-center">
-            <h1>TREINAMENTOS</h1>
-          </div>
-          <div className="player-header-right">
-            <button
-              className="logout-btn"
-              onClick={() => {
-                // Limpa todos os progressos salvos
-                Object.keys(localStorage)
-                  .filter(key => key.startsWith('progress_'))
-                  .forEach(key => localStorage.removeItem(key));
-                // Usar replace para impedir que o usuário volte pelas abas
-                window.location.replace('/');
-              }}
-            >
-              Logout
-            </button>
-          </div>
-        </div>
-      </header>
+      <div className="go-academy-player-page">
       <main>
-        <div className="player-container fade-in">
-          <div className="video-box">
+        <button
+          className="go-academy-back-to-courses-btn"
+          onClick={() => navigate(`/curso-barbearia/tutorial/${tutorialId}`)}
+          title="Voltar para a trilha do tutorial"
+        >
+          <i className="fa fa-arrow-left" aria-hidden="true"></i>
+          Voltar
+        </button>
+        <div className="go-academy-player-container go-academy-fade-in">
+          <div className="go-academy-video-box">
             {modulo ? (
               modulo.type === 'video' ? (
-                videoLoading ? (
-                  <Spinner />
-                ) : (
-                  <iframe
-                    ref={iframeRef}
-                    width="100%"
-                    height="400"
-                    src={
-                      modulo.urlDoVideoEmbed.includes('enablejsapi=1')
-                        ? modulo.urlDoVideoEmbed
-                        : modulo.urlDoVideoEmbed + (modulo.urlDoVideoEmbed.includes('?') ? '&' : '?') + 'enablejsapi=1'
+                <SecureVideoPlayer
+                  module={modulo}
+                  userId={currentUser?.uid || currentUser?.email || 'anonymous'}
+                  onVideoLoaded={(data) => {
+                    console.log('Vídeo carregado:', data);
+                    // Track video view
+                    if (window.gtag) {
+                      window.gtag('event', 'video_view', {
+                        event_category: 'engagement',
+                        event_label: modulo.title,
+                        tutorial_id: tutorialId
+                      });
                     }
-                    title={modulo.title}
-                    frameBorder="0"
-                    allowFullScreen
-                    style={{ borderRadius: '12px', background: '#000' }}
-                    id="ytplayer"
-                    onLoad={() => setVideoLoading(false)}
-                  ></iframe>
-                )
+                  }}
+                  onVideoEnd={async (data) => {
+                    console.log('Vídeo terminou:', data);
+                    // Salva progresso como COMPLETO quando o vídeo termina
+                    await saveProgress(true);
+                    // Atualiza o status local
+                    setStatus('Concluído');
+                    // Mostra botão de próxima atividade
+                    setShowNextButton(true);
+                    // Track video completion
+                    if (window.gtag) {
+                      window.gtag('event', 'video_completed', {
+                        event_category: 'engagement',
+                        event_label: modulo.title,
+                        tutorial_id: tutorialId
+                      });
+                    }
+                  }}
+                  onError={(error) => {
+                    console.error('Erro ao carregar vídeo:', error);
+                  }}
+                />
               ) : (
                 <QuizAtividade modulo={modulo} onComplete={async () => { 
                   await saveProgress(true); 
@@ -267,36 +300,48 @@ const PlayerPage = () => {
                 }} status={status} />
               )
             ) : (
-              <div id="video-player">Selecione um módulo para assistir</div>
+              <div className="go-academy-video-player">Selecione um módulo para assistir</div>
             )}
           </div>
-          <div className="video-info">
+          <div className="go-academy-video-info">
             <h1 id="videoTitle">{modulo ? modulo.title : 'Carregando...'}</h1>
             <p id="videoDesc" style={{color: (showNextButton || status === 'Concluído') ? '#28a745' : '#888', fontWeight: 500}}>
               Status: {(showNextButton || status === 'Concluído') ? 'Concluído' : status}
             </p>
-            {showNextButton && modulo?.type === 'video' && (
-              <button 
-                type="button" 
-                style={{
-                  background:'#212529', 
-                  color:'#fff', 
-                  border:'none', 
-                  borderRadius:'6px', 
-                  padding:'0.7rem 2rem', 
-                  fontSize:'1rem', 
-                  fontWeight:600, 
-                  cursor:'pointer', 
-                  marginTop:'1.2rem'
-                }} 
-                onClick={async () => { 
-                  await saveProgress(true); 
-                  setStatus('completed'); 
-                  navigate(`/tutorial/${tutorialId}`); 
-                }}
-              >
-                Voltar aos módulos
-              </button>
+            {modulo?.type === 'video' && (
+              <div className="go-academy-action-buttons">
+                {(() => {
+                  const nextModule = getNextModule(tutorialId, moduleId);
+                  return nextModule ? (
+                    <button 
+                      type="button" 
+                      className="go-academy-next-btn"
+                      onClick={async () => { 
+                        await saveProgress(true); 
+                        setStatus('completed');
+                        navigate(`/curso-barbearia/player?tutorialId=${tutorialId}`, { 
+                          state: { modulo: { ...nextModule, tutorialId } } 
+                        });
+                      }}
+                    >
+                      Próxima Atividade
+                      <i className="fa fa-arrow-right" style={{marginLeft: '0.5rem'}}></i>
+                    </button>
+                  ) : null;
+                })()}
+                <button 
+                  type="button" 
+                  className="go-academy-back-btn"
+                  onClick={async () => { 
+                    await saveProgress(true); 
+                    setStatus('completed'); 
+                    navigate(`/curso-barbearia/tutorial/${tutorialId}`); 
+                  }}
+                >
+                  <i className="fa fa-arrow-left" style={{marginRight: '0.5rem'}}></i>
+                  Voltar aos módulos
+                </button>
+              </div>
             )}
           </div>
         </div>

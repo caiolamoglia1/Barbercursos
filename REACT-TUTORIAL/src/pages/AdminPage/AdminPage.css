@@ -1,23 +1,25 @@
-.admin-page {
+/* src/modules/go-academy/pages/AdminPage/AdminPage.css */
+
+.go-academy-admin-page {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
   font-family: Arial, sans-serif;
 }
 
-.admin-page h1 {
+.go-academy-admin-page h1 {
   color: #333;
   text-align: center;
   margin-bottom: 30px;
 }
 
-.admin-page p {
+.go-academy-admin-page p {
   text-align: center;
   color: #666;
   margin-bottom: 40px;
 }
 
-.admin-actions {
+.go-academy-admin-actions {
   background: #f8f9fa;
   border-radius: 8px;
   padding: 30px;
@@ -25,7 +27,7 @@
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-.migrate-btn {
+.go-academy-migrate-btn {
   background: #007bff;
   color: white;
   border: none;
@@ -37,21 +39,21 @@
   margin-bottom: 20px;
 }
 
-.migrate-btn:hover {
+.go-academy-migrate-btn:hover {
   background: #0056b3;
 }
 
-.migrate-btn:disabled {
+.go-academy-migrate-btn:disabled {
   background: #ccc;
   cursor: not-allowed;
 }
 
-.info-text {
+.go-academy-info-text {
   color: #666;
   font-size: 14px;
   line-height: 1.5;
 }
 
-.info-text strong {
+.go-academy-info-text strong {
   color: #d9534f;
 }
