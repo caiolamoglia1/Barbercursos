@@ -6,6 +6,7 @@ import { db } from '../../firebase';
 import { modulosGestaoTempo, modulosTutorial2, modulosTutorial3 } from '../../data/database';
 import { useLocation, useNavigate, useSearchParams, useParams } from 'react-router-dom';
 import InstagramIcon from '../../components/InstagramIcon/InstagramIcon';
+import Sidebar from '../../components/Sidebar/Sidebar';
 import { useAuth } from '../../contexts/AuthContext';
 import { loadUserProgress, validateAndOrderModules } from '../../utils/progressUtils';
 import goPartsWhiteLogo from '../../images/GoParts_Logo_23Q1_reduzida_branco.png';
@@ -120,6 +121,7 @@ const ModulesPage = () => {
 
   return (
     <>
+      <Sidebar />
       <main>
         <div className="go-academy-modules-page">
           <button

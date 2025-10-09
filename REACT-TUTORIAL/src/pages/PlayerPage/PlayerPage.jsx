@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import './PlayerPage.css';
 import InstagramIcon from '../../components/InstagramIcon/InstagramIcon';
+import Sidebar from '../../components/Sidebar/Sidebar';
 import { Spinner } from '../../components/Spinner/Spinner';
 import { useAuth } from '../../contexts/AuthContext';
 import { saveUserProgress, loadUserProgress, validateAndOrderModules } from '../../utils/progressUtils';
@@ -235,6 +236,7 @@ const PlayerPage = () => {
 
   return (
     <>
+      <Sidebar />
       <div className="go-academy-player-page">
       <main>
         <button

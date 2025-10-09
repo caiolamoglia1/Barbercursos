@@ -1,0 +1,518 @@
+/* Profile Page Styles */
+
+.barber-profile-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  padding: 2rem;
+  padding-left: 5rem;
+}
+
+.barber-profile-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  animation: fadeIn 0.6s ease;
+}
+
+/* Header */
+.barber-profile-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.barber-profile-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(212, 175, 55, 0.1);
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  border-radius: 10px;
+  color: #d4af37;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.barber-profile-back-btn:hover {
+  background: rgba(212, 175, 55, 0.2);
+  border-color: #d4af37;
+  transform: translateX(-5px);
+}
+
+.barber-profile-header h1 {
+  font-size: 2.5rem;
+  color: #d4af37;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+}
+
+/* Profile Card */
+.barber-profile-card {
+  background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+  border-radius: 20px;
+  padding: 3rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(212, 175, 55, 0.2);
+}
+
+/* Avatar Section */
+.barber-profile-avatar-section {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+}
+
+.barber-profile-avatar {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #d4af37 0%, #f0c654 100%);
+  padding: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.barber-profile-avatar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.4);
+}
+
+.barber-profile-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #1a1a1a;
+  padding: 10px;
+}
+
+.barber-profile-avatar-overlay {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #d4af37 0%, #f0c654 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1a1a1a;
+  font-size: 1.2rem;
+  border: 3px solid #1a1a1a;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.barber-profile-avatar-overlay:hover {
+  transform: scale(1.1);
+}
+
+.barber-profile-avatar-remove {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 35px;
+  height: 35px;
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  border: 3px solid #1a1a1a;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.barber-profile-avatar-remove:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.5);
+}
+
+.barber-profile-avatar-hint {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: rgba(212, 175, 55, 0.1);
+  border-left: 3px solid #d4af37;
+  border-radius: 6px;
+  color: #d4af37;
+  font-size: 0.9rem;
+  font-style: italic;
+  animation: fadeIn 0.3s ease;
+}
+
+.barber-profile-avatar-hint i {
+  font-size: 1rem;
+}
+
+.barber-profile-user-info h2 {
+  font-size: 2rem;
+  color: #ffffff;
+  margin: 0 0 0.5rem 0;
+  font-weight: 700;
+}
+
+.barber-profile-email {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #999;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.barber-profile-email i {
+  color: #d4af37;
+}
+
+/* Stats */
+.barber-profile-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+}
+
+.barber-profile-stat-item {
+  background: rgba(42, 42, 42, 0.6);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 2px solid rgba(212, 175, 55, 0.2);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.barber-profile-stat-item:hover {
+  border-color: #d4af37;
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+}
+
+.barber-profile-stat-item i {
+  font-size: 2.5rem;
+  color: #d4af37;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.barber-profile-stat-value {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.barber-profile-stat-label {
+  display: block;
+  font-size: 0.95rem;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Edit Toggle */
+.barber-profile-edit-toggle {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.barber-profile-edit-btn {
+  padding: 1rem 2.5rem;
+  background: linear-gradient(135deg, #d4af37 0%, #f0c654 100%);
+  color: #1a1a1a;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.barber-profile-edit-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.5);
+}
+
+.barber-profile-action-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.barber-profile-save-btn,
+.barber-profile-cancel-btn {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.barber-profile-save-btn {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: #ffffff;
+}
+
+.barber-profile-save-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(40, 167, 69, 0.5);
+}
+
+.barber-profile-cancel-btn {
+  background: rgba(220, 53, 69, 0.2);
+  color: #dc3545;
+  border: 2px solid rgba(220, 53, 69, 0.3);
+}
+
+.barber-profile-cancel-btn:hover {
+  background: rgba(220, 53, 69, 0.3);
+  border-color: #dc3545;
+}
+
+/* Form */
+.barber-profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.barber-profile-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.barber-profile-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.barber-profile-form-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #d4af37;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.barber-profile-form-group label i {
+  font-size: 1.2rem;
+}
+
+.barber-profile-form-group input,
+.barber-profile-form-group select,
+.barber-profile-form-group textarea {
+  padding: 1rem 1.25rem;
+  background: rgba(42, 42, 42, 0.6);
+  border: 2px solid rgba(212, 175, 55, 0.2);
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+.barber-profile-form-group input:focus,
+.barber-profile-form-group select:focus,
+.barber-profile-form-group textarea:focus {
+  outline: none;
+  border-color: #d4af37;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+.barber-profile-form-group input:disabled,
+.barber-profile-form-group select:disabled,
+.barber-profile-form-group textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.barber-profile-input-disabled {
+  background: rgba(42, 42, 42, 0.3) !important;
+}
+
+.barber-profile-form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.6;
+}
+
+/* Logout Section */
+.barber-profile-logout-section {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid rgba(212, 175, 55, 0.2);
+  text-align: center;
+}
+
+.barber-profile-logout-btn {
+  padding: 1rem 2.5rem;
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.barber-profile-logout-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(220, 53, 69, 0.5);
+  background: linear-gradient(135deg, #c82333 0%, #bd2130 100%);
+}
+
+/* Success Toast */
+.barber-profile-success-toast {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: #ffffff;
+  padding: 1.25rem 2rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(40, 167, 69, 0.5);
+  z-index: 10000;
+  animation: slideInRight 0.5s ease, slideOutRight 0.5s ease 2.5s;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .barber-profile-page {
+    padding: 1.5rem 1rem;
+    padding-left: 1rem;
+  }
+
+  .barber-profile-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .barber-profile-header h1 {
+    font-size: 2rem;
+  }
+
+  .barber-profile-avatar-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .barber-profile-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .barber-profile-form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .barber-profile-action-buttons {
+    flex-direction: column;
+  }
+
+  .barber-profile-save-btn,
+  .barber-profile-cancel-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .barber-profile-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .barber-profile-header h1 {
+    font-size: 1.6rem;
+  }
+
+  .barber-profile-user-info h2 {
+    font-size: 1.5rem;
+  }
+
+  .barber-profile-success-toast {
+    top: 1rem;
+    right: 1rem;
+    left: 1rem;
+    font-size: 1rem;
+  }
+}

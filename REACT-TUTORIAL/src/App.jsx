@@ -8,6 +8,7 @@ import CoursesPage from './pages/CoursesPage/CoursesPage';
 import ModulesPage from './pages/ModulesPage/ModulesPage';
 import PlayerPage from './pages/PlayerPage/PlayerPage';
 import AdminPage from './pages/AdminPage/AdminPage';
+import ProfilePage from './pages/ProfilePage/ProfilePage';
 import './index.css';
 import './App.css';
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/curso-barbearia/modulos" element={<ModulesPage />} />
           <Route path="/curso-barbearia/tutorial/:id" element={<ModulesPage />} />
           <Route path="/curso-barbearia/player" element={<PlayerPage />} />
+          <Route path="/curso-barbearia/perfil" element={<ProfilePage />} />
           <Route path="/curso-barbearia/admin" element={<AdminPage />} />
           {/* Rotas sem prefixo para compatibilidade */}
           <Route path="treinamentos" element={<LoginPage />} />

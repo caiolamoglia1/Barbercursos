@@ -6,6 +6,7 @@ import { db } from '../../firebase';
 import { tutoriais as localTutoriais } from '../../data/database';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import InstagramIcon from '../../components/InstagramIcon/InstagramIcon';
+import Sidebar from '../../components/Sidebar/Sidebar';
 import { useAuth } from '../../contexts/AuthContext';
 import { loadUserProgress } from '../../utils/progressUtils';
 import { modulosGestaoTempo, modulosTutorial2, modulosTutorial3 } from '../../data/database';
@@ -126,6 +127,7 @@ function CoursesPage() {
 
   return (
     <>
+      <Sidebar />
       <div className="go-academy-courses-page">
         <div className="go-academy-courses-container">
           <div className="go-academy-courses-header">
