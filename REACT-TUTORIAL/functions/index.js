@@ -50,13 +50,12 @@ app.post('/subscribe', async (req, res) => {
 // Optional Stripe integration endpoints
 let stripe;
 try {
-  // Prefer functions config (for deployed functions), but allow an env var fallback for local testing
-  const stripeKey = (functions.config && functions.config().stripe && functions.config().stripe.secret_key) || process.env.STRIPE_SECRET;
+  const stripeKey = functions.config && functions.config().stripe && functions.config().stripe.secret_key;
   if (stripeKey) {
     stripe = require('stripe')(stripeKey);
   } else {
-    // stripe will remain undefined in local setups without config — endpoints will return helpful errors
-    console.log('Stripe secret not found in functions.config().stripe.secret_key or process.env.STRIPE_SECRET — /create-checkout-session will be disabled until configured.');
+    // stripe will remain undefined in local setups without config — functions will still run but endpoints will return helpful errors
+    console.log('Stripe secret not found in functions.config().stripe.secret_key — /create-checkout-session will be disabled until configured.');
   }
 } catch (e) {
   console.warn('Stripe module not available or failed to initialize:', e && e.message);
@@ -89,8 +88,7 @@ app.post('/create-checkout-session', async (req, res) => {
       metadata: { planId }
     });
 
-  // Return sessionId and URL (newer Stripe SDK returns session.url)
-  return res.json({ sessionId: session.id, url: session.url });
+    return res.json({ sessionId: session.id });
   } catch (err) {
     console.error('create-checkout-session error', err);
     return res.status(500).json({ error: err.message || err.toString() });
