@@ -1,0 +1,256 @@
+/* PlansPage - BarberAcademy */
+
+.barber-plans-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+.barber-plans-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.barber-plans-container h1 {
+  color: #d4af37;
+  font-size: 2.6rem;
+  margin-bottom: 0.25rem;
+  text-shadow: 0 4px 12px rgba(212,175,55,0.15);
+}
+
+.barber-plans-sub {
+  color: #cfcfcf;
+  margin-bottom: 2rem;
+  font-size: 1.05rem;
+}
+
+.barber-plans-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.barber-plan-card {
+  background: linear-gradient(180deg, #2d2d2d 0%, #1a1a1a 100%);
+  padding: 1.75rem;
+  border-radius: 14px;
+  border: 2px solid rgba(212,175,55,0.12);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 320px;
+  position: relative; /* ensure badge positions correctly */
+}
+
+/* entrance animation and interactive hover movement similar to ModulesPage */
+.barber-plan-card {
+  transition: all 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: planCardFadeIn 0.6s ease backwards;
+}
+
+@keyframes planCardFadeIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.barber-plan-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 14px 40px rgba(0,0,0,0.55);
+  border-color: rgba(212,175,55,0.28);
+}
+
+/* subtle gold stripe on hover (keeps pattern similar to module items) */
+.barber-plan-card::before {
+  /* thin top stripe flushed to the card's inner top edge */
+  content: '';
+  position: absolute;
+  left: 0; /* flush to inner left edge */
+  right: 0; /* flush to inner right edge */
+  top: 0; /* flush to inner top edge */
+  height: 4px; /* slightly taller to be visible when flush */
+  width: 0%;
+  background: linear-gradient(90deg, #d4af37 0%, #e7c96d 50%, #d4af37 100%);
+  transition: width 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.25s ease;
+  opacity: 1;
+  border-top-left-radius: 12px; /* match card radius */
+  border-top-right-radius: 12px;
+}
+
+.barber-plan-card:hover::before {
+  width: 100%;
+  opacity: 1;
+}
+
+/* ensure the stripe doesn't overflow rounded card corners */
+.barber-plan-card { overflow: hidden; }
+
+/* ensure badge sits above the flush stripe */
+.barber-plan-badge { z-index: 15; position: absolute; top: 8px; left: 50%; transform: translateX(-50%); }
+
+/* make sure the badge stays above the thin stripe */
+.barber-plan-badge { z-index: 12; }
+
+/* staggered entrance delays for each card to match module animations */
+.barber-plans-grid .barber-plan-card:nth-child(1) { animation-delay: 0.08s; }
+.barber-plans-grid .barber-plan-card:nth-child(2) { animation-delay: 0.14s; }
+.barber-plans-grid .barber-plan-card:nth-child(3) { animation-delay: 0.2s; }
+
+.barber-plan-badge {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  z-index: 10;
+}
+
+.barber-plan-badge i {
+  color: #d4af37; /* gold stars */
+  font-size: 20px;
+  text-shadow: 0 2px 6px rgba(212,175,55,0.12);
+}
+
+.barber-plan-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.barber-plan-header h3 {
+  color: #ffffff;
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.barber-plan-price {
+  color: #d4af37;
+  font-weight: 800;
+  font-size: 1.15rem;
+}
+
+.barber-plan-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.25rem 0;
+  color: #cfcfcf;
+  text-align: left;
+}
+
+.barber-plan-features li {
+  padding: 0.6rem 0;
+  border-bottom: 1px dashed rgba(255,255,255,0.03);
+}
+
+.barber-plan-cta {
+  margin-top: 1rem;
+}
+
+
+.barber-choose-btn {
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 800;
+  cursor: pointer;
+  border: 1px solid rgba(212,175,55,0.06);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0.12) 100%);
+  color: #d4af37;
+  display: inline-block;
+}
+
+/* Hover state: transition progressively to gold filled with dark text */
+.barber-choose-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 36px rgba(0,0,0,0.6), 0 6px 18px rgba(212,175,55,0.06);
+  background: linear-gradient(135deg, #d4af37 0%, #f0c654 100%);
+  color: #1a1a1a;
+}
+
+.barber-choose-btn:active {
+  transform: translateY(-1px);
+}
+
+/* reuse cardFadeIn animation for buttons */
+@keyframes cardFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+
+.barber-choose-btn-outline {
+  background: transparent;
+  color: #d4af37;
+  border: 2px solid rgba(212,175,55,0.12);
+}
+
+.barber-choose-btn-outline:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.45);
+  background: linear-gradient(135deg, #d4af37 0%, #f0c654 100%);
+  color: #1a1a1a;
+}
+
+
+.barber-choose-btn-ghost {
+  background: rgba(255,255,255,0.02);
+  color: #d4af37;
+  border: 2px solid rgba(212,175,55,0.06);
+}
+
+.barber-choose-btn-ghost:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.45);
+  background: linear-gradient(135deg, #d4af37 0%, #f0c654 100%);
+  color: #1a1a1a;
+}
+
+/* Ripple helper for plan buttons */
+.barber-choose-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.barber-choose-btn::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255,255,255,0.18);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.5s ease, height 0.5s ease, opacity 0.6s ease;
+  opacity: 0;
+}
+
+.barber-choose-btn:active::after {
+  width: 260px;
+  height: 260px;
+  opacity: 1;
+  transition: width 0.2s ease, height 0.2s ease, opacity 0.6s ease;
+}
+
+@media (max-width: 992px) {
+  .barber-plans-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .barber-plans-grid {
+    grid-template-columns: 1fr;
+  }
+}

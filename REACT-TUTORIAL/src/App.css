@@ -43,3 +43,84 @@
 .go-academy-read-the-docs {
   color: #888;
 }
+
+/* Global button styles to unify the site */
+:root {
+  --barber-gold: #d4af37;
+  --barber-gold-2: #f0c654;
+  --barber-dark: #1a1a1a;
+  --barber-transition: all 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+button, .btn, input[type="button"], input[type="submit"], a.button {
+  font-family: inherit;
+  cursor: pointer;
+  border: 0;
+  outline: none;
+  transition: var(--barber-transition);
+}
+
+/* Primary barber button (gold filled) */
+.barber-btn, .barber-choose-btn-primary {
+  background: linear-gradient(135deg, var(--barber-gold) 0%, var(--barber-gold-2) 100%);
+  color: var(--barber-dark);
+  padding: 0.9rem 1.4rem;
+  border-radius: 10px;
+  font-weight: 800;
+  box-shadow: 0 8px 24px rgba(212,175,55,0.18);
+}
+
+.barber-btn:hover, .barber-choose-btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 36px rgba(212,175,55,0.26);
+}
+
+/* Outline variant */
+.barber-btn-outline, .barber-choose-btn-outline {
+  background: transparent;
+  color: var(--barber-gold);
+  border: 2px solid rgba(212,175,55,0.18);
+}
+
+.barber-btn-outline:hover {
+  background: linear-gradient(135deg, rgba(212,175,55,0.08) 0%, rgba(212,175,55,0.04) 100%);
+  transform: translateY(-2px);
+}
+
+/* Ghost */
+.barber-btn-ghost, .barber-choose-btn-ghost {
+  background: rgba(212,175,55,0.06);
+  color: var(--barber-gold);
+  border: 1px solid rgba(212,175,55,0.08);
+}
+
+/* ripple support for any button using barber- prefix */
+.barber-btn, .barber-btn-outline, .barber-btn-ghost, .barber-choose-btn {
+  position: relative;
+  overflow: hidden;
+}
+.barber-btn::after, .barber-choose-btn::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255,255,255,0.14);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.45s ease, height 0.45s ease, opacity 0.6s ease;
+  opacity: 0;
+}
+.barber-btn:active::after, .barber-choose-btn:active::after {
+  width: 240px;
+  height: 240px;
+  opacity: 1;
+  transition: width 0.18s ease, height 0.18s ease, opacity 0.5s ease;
+}
+
+/* small utility to ensure local specific classes inherit global visuals */
+.barber-choose-btn, .barber-choose-btn-primary, .barber-choose-btn-outline, .barber-choose-btn-ghost {
+  padding: 0.9rem 1.6rem;
+  border-radius: 10px;
+}

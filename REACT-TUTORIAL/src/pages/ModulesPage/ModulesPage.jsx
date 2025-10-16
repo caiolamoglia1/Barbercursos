@@ -140,16 +140,16 @@ const ModulesPage = () => {
             </div>
           ) : (
             <>
-              <div style={{marginBottom: '1.5rem', padding: '1rem', backgroundColor: '#f8f9fa', borderRadius: '8px', border: '1px solid #e9ecef'}}>
-                <p style={{margin: 0, fontSize: '1.1rem', fontWeight: 500, color: '#495057'}}>
-                  Progresso: <span style={{color: '#28a745', fontWeight: 600}}>{completedModules.length}</span> de <span style={{fontWeight: 600}}>{modules.length}</span> módulos concluídos
+              <div style={{marginBottom: '1.5rem', padding: '1rem', background: 'linear-gradient(180deg,#2d2d2d 0%, #1a1a1a 100%)', borderRadius: '8px', border: '1px solid rgba(212,175,55,0.12)'}}>
+                <p style={{margin: 0, fontSize: '1.1rem', fontWeight: 500, color: '#ffffff'}}>
+                  Progresso: <span style={{color: '#d4af37', fontWeight: 700}}>{completedModules.length}</span> de <span style={{fontWeight: 700, color: '#ffffff'}}>{modules.length}</span> módulos concluídos
                 </p>
-                <div style={{width: '100%', height: '8px', backgroundColor: '#e9ecef', borderRadius: '4px', marginTop: '0.5rem'}}>
+                <div style={{width: '100%', height: '8px', backgroundColor: '#232323', borderRadius: '4px', marginTop: '0.5rem', border: '1px solid rgba(255,255,255,0.03)'}}>
                   <div 
                     style={{
                       width: `${modules.length > 0 ? (completedModules.length / modules.length) * 100 : 0}%`, 
                       height: '100%', 
-                      backgroundColor: '#28a745', 
+                      backgroundColor: '#d4af37', 
                       borderRadius: '4px',
                       transition: 'width 0.3s ease'
                     }}

@@ -21,13 +21,19 @@ function LoginPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setError('');
     setLoading(true);
-    
-    // Pequeno delay para feedback visual
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      await login(email, password);
+      // ao logar com sucesso, o listener onAuthStateChanged do AuthProvider
+      // atualizará currentUser; navegamos para a área de cursos
       navigate('/curso-barbearia/cursos');
-    }, 300);
+    } catch (err) {
+      console.error('login error', err);
+      setError(err.message || 'Falha ao autenticar. Verifique suas credenciais.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

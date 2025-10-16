@@ -3,7 +3,10 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 function PrivateRoute({ children, adminOnly = false }) {
-  const { currentUser } = useAuth();
+  const { currentUser, loading } = useAuth();
+
+  // Enquanto o estado de auth estiver carregando, não redirecionamos
+  if (loading) return null;
 
   // Se não estiver logado, redireciona para login
   if (!currentUser) {

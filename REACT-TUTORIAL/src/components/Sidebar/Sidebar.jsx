@@ -33,9 +33,10 @@ const Sidebar = () => {
   };
 
   const menuItems = [
-    { path: '/curso-barbearia/cursos', label: 'Cursos', icon: 'fa-graduation-cap' },
-    { path: '/curso-barbearia/perfil', label: 'Meu Perfil', icon: 'fa-user' },
-    { path: '/curso-barbearia/admin', label: 'Painel Admin', icon: 'fa-cog', adminOnly: true },
+  { path: '/curso-barbearia/cursos', label: 'Cursos', icon: 'fa-graduation-cap' },
+  { path: '/curso-barbearia/planos', label: 'Planos', icon: 'fa-credit-card' },
+  { path: '/curso-barbearia/perfil', label: 'Meu Perfil', icon: 'fa-user' },
+  { path: '/curso-barbearia/admin', label: 'Painel Admin', icon: 'fa-cog', adminOnly: true },
   ];
 
   return (
