@@ -31,16 +31,12 @@ function AdminPage() {
 
   const isAdmin = currentUser?.email === 'admin@gmail.com';
 
-  useEffect(() => {
-    if (isAdmin) {
-      loadAdminData();
-    }
-  }, [isAdmin]);
-
   const loadAdminData = async () => {
     try {
+      console.log('🔄 Carregando dados do admin...');
       setLoading(true);
       const usersSnapshot = await getDocs(collection(db, 'users'));
+      console.log('📊 Usuários encontrados:', usersSnapshot.size);
       const usersData = [];
       let activeUsersCount = 0;
       let usersWithoutPlanCount = 0;
@@ -100,6 +96,14 @@ function AdminPage() {
         planStats 
       });
       
+      console.log('📈 Estatísticas atualizadas:', {
+        totalUsers: usersSnapshot.size,
+        activeUsers: activeUsersCount,
+        usersWithoutPlan: usersWithoutPlanCount,
+        totalModulesCompleted: totalModulesCount,
+        planStats
+      });
+      
       usersData.sort((a, b) => {
         if (!a.lastLogin) return 1;
         if (!b.lastLogin) return -1;
@@ -108,11 +112,22 @@ function AdminPage() {
       
       setUsers(usersData);
       setLoading(false);
+      console.log('✅ Dados carregados com sucesso!', { totalUsers: usersSnapshot.size, stats: planStats });
     } catch (error) {
-      console.error('Erro ao carregar dados:', error);
+      console.error('❌ Erro ao carregar dados:', error);
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    console.log('🔍 Verificando admin...', { currentUser: currentUser?.email, isAdmin });
+    if (isAdmin) {
+      console.log('✅ É admin! Carregando dados...');
+      loadAdminData();
+    } else {
+      console.log('❌ Não é admin');
+    }
+  }, [isAdmin, currentUser]);
 
   const handleAddUser = async (e) => {
     e.preventDefault();

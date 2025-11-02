@@ -3,32 +3,36 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     
+    // Função auxiliar para verificar se é admin
+    function isAdmin() {
+      return request.auth != null && request.auth.token.email == 'admin@gmail.com';
+    }
+    
     // Regra unificada para coleção users
     match /users/{userId} {
-      // Permite ler e escrever apenas se o usuário estiver autenticado
-      // e for o próprio dono dos dados
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+      // Permite ler e escrever se for o próprio usuário OU se for admin
+      allow read, write: if (request.auth != null && request.auth.uid == userId) || isAdmin();
       
       // Permite acesso à subcoleção subscriptions
       match /subscriptions/{subscriptionId} {
-        allow read, write: if request.auth != null && request.auth.uid == userId;
+        allow read, write: if (request.auth != null && request.auth.uid == userId) || isAdmin();
       }
       
       // Permite acesso à subcoleção progress
       match /progress/{document=**} {
-        allow read, write: if request.auth != null && request.auth.uid == userId;
+        allow read, write: if (request.auth != null && request.auth.uid == userId) || isAdmin();
       }
     }
     
     // Mantém compatibilidade com userProgress antiga (temporário)
     match /userProgress/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read, write: if (request.auth != null && request.auth.uid == userId) || isAdmin();
       
       match /tutorials/{tutorialId} {
-        allow read, write: if request.auth != null && request.auth.uid == userId;
+        allow read, write: if (request.auth != null && request.auth.uid == userId) || isAdmin();
         
         match /modules/{moduleId} {
-          allow read, write: if request.auth != null && request.auth.uid == userId;
+          allow read, write: if (request.auth != null && request.auth.uid == userId) || isAdmin();
         }
       }
     }
