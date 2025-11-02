@@ -10,6 +10,8 @@ import { saveUserProgress, loadUserProgress, validateAndOrderModules } from '../
 import { modulosGestaoTempo, modulosTutorial2 } from '../../data/database';
 import goPartsWhiteLogo from '../../images/GoParts_Logo_23Q1_reduzida_branco.png';
 import SecureVideoPlayer from '../../components/SecureVideoPlayer';
+import SubscriptionRequired from '../../components/SubscriptionRequired/SubscriptionRequired';
+import { checkUserSubscription } from '../../services/SubscriptionService';
 
 const PlayerPage = () => {
   const location = useLocation();
@@ -19,6 +21,9 @@ const PlayerPage = () => {
   const { currentUser, logout } = useAuth();
   const modulo = location.state?.modulo;
   const [showNextButton, setShowNextButton] = useState(false);
+  const [hasSubscription, setHasSubscription] = useState(null); // null = carregando, true/false = resultado
+  const [subscriptionLoading, setSubscriptionLoading] = useState(true);
+  
   // tutorialId e moduleId podem vir da URL ou do objeto modulo
   const tutorialId = searchParams.get('tutorialId') || modulo?.tutorialId || 'default';
   const moduleId = modulo?.moduleId;
@@ -26,6 +31,29 @@ const PlayerPage = () => {
   useEffect(() => {
     document.title = `${modulo?.title || 'Aula'} - BarberAcademy`;
   }, [modulo?.title]);
+
+  // Verifica assinatura do usuário
+  useEffect(() => {
+    const checkSubscription = async () => {
+      if (!currentUser) {
+        setHasSubscription(false);
+        setSubscriptionLoading(false);
+        return;
+      }
+
+      try {
+        const { hasSubscription: hasSub } = await checkUserSubscription(currentUser.uid);
+        setHasSubscription(hasSub);
+      } catch (error) {
+        console.error('Erro ao verificar assinatura:', error);
+        setHasSubscription(false);
+      } finally {
+        setSubscriptionLoading(false);
+      }
+    };
+
+    checkSubscription();
+  }, [currentUser]);
 
   // Função para encontrar o próximo módulo
   const getNextModule = (currentTutorialId, currentModuleId) => {
@@ -78,7 +106,7 @@ const PlayerPage = () => {
     if (!tutorialId || !moduleId || !currentUser) return;
 
     try {
-      await saveUserProgress(currentUser.uid, tutorialId, moduleId, setCompleted);
+      await saveUserProgress(currentUser.uid, tutorialId, moduleId, setCompleted, currentUser.email);
       console.log('Progresso salvo para usuário:', currentUser.email);
     } catch (error) {
       console.error('Erro ao salvar progresso:', error);
@@ -238,6 +266,13 @@ const PlayerPage = () => {
     <>
       <Sidebar />
       <div className="go-academy-player-page">
+      {subscriptionLoading ? (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
+          <Spinner />
+        </div>
+      ) : !hasSubscription ? (
+        <SubscriptionRequired courseName={modulo?.title} />
+      ) : (
       <main>
         <button
           className="go-academy-back-to-courses-btn"
@@ -349,6 +384,7 @@ const PlayerPage = () => {
         </div>
         {/* Botão próximo módulo removido - agora volta direto para módulos */}
       </main>
+      )}
     </div>
     <InstagramIcon />
     </>

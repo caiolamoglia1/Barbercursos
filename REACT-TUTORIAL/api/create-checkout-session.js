@@ -1,39 +1,64 @@
 // api/create-checkout-session.js
-const initAdmin = require('./_admin');
 const Stripe = require('stripe');
 
+// Mapeamento dos Price IDs
+const STRIPE_PLANS = {
+  basic: 'price_1SIYKzRpeDjVow8XmJz7Hqcl',
+  pro: 'price_1SIZ4XRpeDjVow8XSwYJZ7Ox',
+  elite: 'price_1SIsuTRpeDjVow8XEMa18RjB'
+};
+
 module.exports = async (req, res) => {
-  if (req.method !== 'POST') return res.status(405).send('Method Not Allowed');
+  // Enable CORS
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+  res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
+
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method Not Allowed' });
+  }
 
   try {
-    const admin = initAdmin();
-    const db = admin.firestore();
+    const stripeSecret = process.env.STRIPE_SECRET_KEY;
+    if (!stripeSecret) {
+      console.error('STRIPE_SECRET_KEY not configured');
+      return res.status(500).json({ error: 'Stripe not configured' });
+    }
 
-    const stripeSecret = process.env.STRIPE_SECRET;
-    if (!stripeSecret) return res.status(500).json({ error: 'Stripe secret not configured' });
     const stripe = Stripe(stripeSecret);
-
     const { planId, userId } = req.body || {};
-    if (!planId || !userId) return res.status(400).json({ error: 'planId and userId required' });
 
-    const planDoc = await db.collection('plans').doc(planId).get();
-    if (!planDoc.exists) return res.status(404).json({ error: 'Plan not found' });
-    const priceId = planDoc.data().stripePriceId;
-    if (!priceId) return res.status(400).json({ error: 'Plan missing stripePriceId' });
+    if (!planId || !userId) {
+      return res.status(400).json({ error: 'planId and userId required' });
+    }
+
+    const priceId = STRIPE_PLANS[planId];
+    if (!priceId) {
+      return res.status(400).json({ error: 'Invalid plan ID' });
+    }
+
+    console.log('Creating checkout session for:', { planId, userId, priceId });
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       mode: 'subscription',
       line_items: [{ price: priceId, quantity: 1 }],
-      success_url: process.env.SUCCESS_URL || 'https://your-site/success?session_id={CHECKOUT_SESSION_ID}',
-      cancel_url: process.env.CANCEL_URL || 'https://your-site/planos',
+      success_url: `${req.headers.origin || 'http://localhost:5173'}/success?session_id={CHECKOUT_SESSION_ID}&plan=${planId}`,
+      cancel_url: `${req.headers.origin || 'http://localhost:5173'}/curso-barbearia/planos`,
       client_reference_id: userId,
-      metadata: { planId }
+      metadata: { planId, userId }
     });
 
+    console.log('Checkout session created:', session.id);
     return res.json({ sessionId: session.id, url: session.url });
   } catch (err) {
-    console.error('create-checkout-session error', err && (err.stack || err.message || err));
-    return res.status(500).json({ error: err.message || String(err) });
+    console.error('create-checkout-session error:', err);
+    return res.status(500).json({ error: err.message || 'Internal server error' });
   }
 };

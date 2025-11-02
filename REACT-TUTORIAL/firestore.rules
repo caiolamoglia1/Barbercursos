@@ -3,17 +3,30 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     
-    // Regra para coleção userProgress
-    match /userProgress/{userId} {
+    // Regra unificada para coleção users
+    match /users/{userId} {
       // Permite ler e escrever apenas se o usuário estiver autenticado
       // e for o próprio dono dos dados
       allow read, write: if request.auth != null && request.auth.uid == userId;
       
-      // Permite acesso a subcoleções (tutorials)
+      // Permite acesso à subcoleção subscriptions
+      match /subscriptions/{subscriptionId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+      
+      // Permite acesso à subcoleção progress
+      match /progress/{document=**} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+    
+    // Mantém compatibilidade com userProgress antiga (temporário)
+    match /userProgress/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      
       match /tutorials/{tutorialId} {
         allow read, write: if request.auth != null && request.auth.uid == userId;
         
-        // Permite acesso a módulos dentro de tutorials
         match /modules/{moduleId} {
           allow read, write: if request.auth != null && request.auth.uid == userId;
         }

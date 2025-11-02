@@ -4,17 +4,19 @@ import { db } from '../firebase';
 
 /**
  * Salva o progresso do usuário no Firebase
+ * NOVA ESTRUTURA: users/{userId}/progress/tutorials/{tutorialId}
  * @param {string} userId - ID do usuário
  * @param {string} tutorialId - ID do tutorial
  * @param {string} moduleId - ID do módulo
  * @param {boolean} completed - Se o módulo foi completado
+ * @param {string} userEmail - Email do usuário (opcional)
  */
-export const saveUserProgress = async (userId, tutorialId, moduleId, completed = false) => {
+export const saveUserProgress = async (userId, tutorialId, moduleId, completed = false, userEmail = null) => {
   try {
-    console.log('Salvando progresso:', { userId, tutorialId, moduleId, completed });
+    console.log('Salvando progresso:', { userId, tutorialId, moduleId, completed, userEmail });
     
-    // Salva em um único documento por tutorial
-    const tutorialRef = doc(db, 'userProgress', userId, 'tutorials', tutorialId);
+    // NOVA ESTRUTURA: dentro de users
+    const tutorialRef = doc(db, 'users', userId, 'progress', tutorialId);
     
     // Primeiro carrega o progresso atual
     const tutorialDoc = await getDoc(tutorialRef);
@@ -28,11 +30,18 @@ export const saveUserProgress = async (userId, tutorialId, moduleId, completed =
       updatedAt: new Date().toISOString()
     };
     
-    // Salva de volta
-    await setDoc(tutorialRef, {
+    // Salva de volta com email
+    const progressData = {
       ...currentData,
       updatedAt: new Date().toISOString()
-    }, { merge: true });
+    };
+    
+    // Adiciona email se fornecido
+    if (userEmail) {
+      progressData.email = userEmail;
+    }
+    
+    await setDoc(tutorialRef, progressData, { merge: true });
     
     console.log('Progresso salvo com sucesso!');
     return true;
@@ -44,6 +53,7 @@ export const saveUserProgress = async (userId, tutorialId, moduleId, completed =
 
 /**
  * Carrega o progresso do usuário do Firebase
+ * NOVA ESTRUTURA: users/{userId}/progress/tutorials/{tutorialId}
  * @param {string} userId - ID do usuário
  * @param {string} tutorialId - ID do tutorial
  * @param {string} moduleId - ID do módulo (opcional)
@@ -51,7 +61,8 @@ export const saveUserProgress = async (userId, tutorialId, moduleId, completed =
  */
 export const loadUserProgress = async (userId, tutorialId, moduleId) => {
   try {
-    const tutorialRef = doc(db, 'userProgress', userId, 'tutorials', tutorialId);
+    // NOVA ESTRUTURA: dentro de users
+    const tutorialRef = doc(db, 'users', userId, 'progress', tutorialId);
     const tutorialDoc = await getDoc(tutorialRef);
     
     if (!tutorialDoc.exists()) {
@@ -76,13 +87,15 @@ export const loadUserProgress = async (userId, tutorialId, moduleId) => {
 
 /**
  * Carrega o progresso de todos os módulos de um tutorial
+ * NOVA ESTRUTURA: users/{userId}/progress/tutorials/{tutorialId}
  * @param {string} userId - ID do usuário
  * @param {string} tutorialId - ID do tutorial
  * @returns {object} - Dados do progresso do tutorial
  */
 export const loadTutorialProgress = async (userId, tutorialId) => {
   try {
-    const tutorialRef = doc(db, 'userProgress', userId, 'tutorials', tutorialId);
+    // NOVA ESTRUTURA: dentro de users
+    const tutorialRef = doc(db, 'users', userId, 'progress', tutorialId);
     const tutorialDoc = await getDoc(tutorialRef);
     
     if (!tutorialDoc.exists()) {

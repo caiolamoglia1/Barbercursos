@@ -9,10 +9,12 @@ export default defineConfig({
     host: true,
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1:5001',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '/platcursomaicon/us-central1/api')
+        target: 'http://localhost:3001',
+        changeOrigin: true
       }
+    },
+    headers: {
+      'Cache-Control': 'no-store'
     }
   }
 })
