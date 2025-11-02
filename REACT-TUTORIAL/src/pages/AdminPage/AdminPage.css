@@ -2,7 +2,7 @@
 
 .go-academy-admin-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #000000;
   padding: 0;
 }
 
@@ -14,33 +14,42 @@
 
 .admin-header {
   text-align: center;
-  color: white;
+  color: #FFD700;
   margin-bottom: 40px;
-  padding: 20px;
+  padding: 30px;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 193, 7, 0.05) 100%);
+  border-radius: 20px;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  box-shadow: 0 8px 32px rgba(255, 215, 0, 0.2);
 }
 
 .admin-header h1 {
   font-size: 2.5rem;
   margin-bottom: 10px;
+  color: #FFD700;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
 }
 
 .admin-header p {
   font-size: 1.1rem;
+  color: #FFC107;
   opacity: 0.9;
 }
 
 /* Seção de Planos */
 .plans-section {
-  background: white;
-  border-radius: 15px;
+  background: #1a1a1a;
+  border-radius: 20px;
   padding: 30px;
   margin-bottom: 30px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.1);
+  border: 2px solid rgba(255, 215, 0, 0.2);
 }
 
 .plans-section h2 {
   margin-bottom: 20px;
-  color: #333;
+  color: #FFD700;
+  font-size: 1.8rem;
 }
 
 .plans-grid {
@@ -51,22 +60,33 @@
 }
 
 .plan-card {
-  border-radius: 15px;
+  border-radius: 20px;
   padding: 25px;
   color: white;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  border: 2px solid;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.plan-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 32px rgba(255, 215, 0, 0.3);
 }
 
 .plan-card.basic {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+  border-color: #FFD700;
 }
 
 .plan-card.pro {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  background: linear-gradient(135deg, #3a3a0a 0%, #2a2a00 100%);
+  border-color: #FFC107;
 }
 
 .plan-card.elite {
   background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  border-color: #FFD700;
+  color: #000;
 }
 
 .plan-header {
@@ -81,9 +101,14 @@
   font-size: 1.5rem;
 }
 
+.plan-card.elite .plan-header h3 {
+  color: #000;
+}
+
 .plan-price {
   font-size: 0.9rem;
   opacity: 0.9;
+  font-weight: bold;
 }
 
 .plan-stats {
@@ -106,11 +131,19 @@
 }
 
 .stat-number.active {
-  color: #4CAF50;
+  color: #FFD700;
 }
 
 .stat-number.inactive {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.plan-card.elite .stat-number.active {
+  color: #000;
+}
+
+.plan-card.elite .stat-number.inactive {
+  color: rgba(0, 0, 0, 0.3);
 }
 
 .stat-text {
@@ -121,27 +154,36 @@
 .plan-revenue {
   text-align: center;
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   padding-top: 15px;
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid rgba(255, 215, 0, 0.3);
+  color: #FFD700;
+}
+
+.plan-card.elite .plan-revenue {
+  color: #000;
+  border-top-color: rgba(0, 0, 0, 0.3);
 }
 
 .total-revenue {
   text-align: center;
   padding: 30px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 15px;
-  color: white;
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  border-radius: 20px;
+  color: #000;
+  box-shadow: 0 8px 24px rgba(255, 215, 0, 0.4);
 }
 
 .total-revenue h3 {
   margin-bottom: 15px;
   font-size: 1.3rem;
+  font-weight: bold;
 }
 
 .revenue-value {
   font-size: 3rem;
   font-weight: bold;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .no-plan {
@@ -151,7 +193,7 @@
 
 .modules-count {
   font-weight: bold;
-  color: #4CAF50;
+  color: #FFD700;
 }
 
 /* Estatísticas */
@@ -163,16 +205,19 @@
 }
 
 .stat-card {
-  background: white;
-  border-radius: 15px;
+  background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+  border-radius: 20px;
   padding: 30px;
   text-align: center;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
 }
 
 .stat-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 12px 32px rgba(255, 215, 0, 0.3);
+  border-color: #FFD700;
 }
 
 .stat-icon {
@@ -183,28 +228,31 @@
 .stat-value {
   font-size: 2.5rem;
   font-weight: bold;
-  color: #667eea;
+  color: #FFD700;
   margin-bottom: 10px;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
 }
 
 .stat-label {
   font-size: 1rem;
-  color: #666;
+  color: #FFC107;
   font-weight: 500;
 }
 
 /* Seção de Usuários */
 .users-section {
-  background: white;
-  border-radius: 15px;
+  background: #1a1a1a;
+  border-radius: 20px;
   padding: 30px;
   margin-bottom: 30px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.1);
+  border: 2px solid rgba(255, 215, 0, 0.2);
 }
 
 .users-section h2 {
   margin-bottom: 20px;
-  color: #333;
+  color: #FFD700;
+  font-size: 1.8rem;
 }
 
 .users-table {
@@ -217,20 +265,22 @@
 }
 
 .users-table th {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  color: #000;
   padding: 15px;
   text-align: left;
   font-weight: 600;
+  font-size: 0.95rem;
 }
 
 .users-table td {
   padding: 15px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+  color: #fff;
 }
 
 .users-table tr:hover {
-  background: #f8f9fa;
+  background: rgba(255, 215, 0, 0.05);
 }
 
 /* Badges */
@@ -245,11 +295,13 @@
 .role-badge.admin {
   background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
   color: #000;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
 }
 
 .role-badge.user {
-  background: #e0e0e0;
-  color: #666;
+  background: #2a2a2a;
+  color: #FFD700;
+  border: 1px solid rgba(255, 215, 0, 0.3);
 }
 
 .subscriptions-list {
@@ -266,26 +318,28 @@
 }
 
 .sub-badge.active {
-  background: #4CAF50;
-  color: white;
+  background: #FFD700;
+  color: #000;
 }
 
 .sub-badge.inactive {
-  background: #ddd;
+  background: #2a2a2a;
   color: #666;
 }
 
 /* Ações Administrativas */
 .admin-actions {
-  background: white;
-  border-radius: 15px;
+  background: #1a1a1a;
+  border-radius: 20px;
   padding: 30px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.1);
+  border: 2px solid rgba(255, 215, 0, 0.2);
 }
 
 .admin-actions h2 {
   margin-bottom: 20px;
-  color: #333;
+  color: #FFD700;
+  font-size: 1.8rem;
 }
 
 .actions-grid {
@@ -295,25 +349,26 @@
 }
 
 .action-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  color: #000;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 15px 20px;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
 }
 
 .action-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
 }
 
 .loading {
   text-align: center;
-  color: white;
+  color: #FFD700;
   font-size: 1.5rem;
   padding: 50px;
 }
@@ -327,24 +382,25 @@
 }
 
 .add-user-btn {
-  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
-  color: white;
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  color: #000;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 12px 24px;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
 }
 
 .add-user-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
 }
 
 .delete-btn {
-  background: #ff4444;
+  background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
   color: white;
   border: none;
   border-radius: 8px;
@@ -352,11 +408,13 @@
   font-size: 1.2rem;
   cursor: pointer;
   transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(255, 68, 68, 0.3);
 }
 
 .delete-btn:hover {
-  background: #cc0000;
+  background: linear-gradient(135deg, #cc0000 0%, #990000 100%);
   transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(255, 68, 68, 0.5);
 }
 
 /* Modal */
@@ -366,22 +424,23 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.9);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(8px);
 }
 
 .modal-content {
-  background: white;
+  background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
   border-radius: 20px;
   width: 90%;
   max-width: 500px;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+  border: 2px solid rgba(255, 215, 0, 0.3);
 }
 
 .modal-header {
@@ -389,12 +448,13 @@
   justify-content: space-between;
   align-items: center;
   padding: 25px;
-  border-bottom: 2px solid #f0f0f0;
+  border-bottom: 2px solid rgba(255, 215, 0, 0.2);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, transparent 100%);
 }
 
 .modal-header h2 {
   margin: 0;
-  color: #333;
+  color: #FFD700;
   font-size: 1.5rem;
 }
 
@@ -402,9 +462,9 @@
   background: none;
   border: none;
   font-size: 2rem;
-  color: #999;
+  color: #FFD700;
   cursor: pointer;
-  transition: color 0.2s;
+  transition: color 0.2s, transform 0.2s;
   padding: 0;
   width: 40px;
   height: 40px;
@@ -414,7 +474,8 @@
 }
 
 .modal-close:hover {
-  color: #333;
+  color: #FFA500;
+  transform: rotate(90deg);
 }
 
 .add-user-form {
@@ -428,7 +489,7 @@
 .form-group label {
   display: block;
   margin-bottom: 8px;
-  color: #333;
+  color: #FFD700;
   font-weight: 600;
   font-size: 0.95rem;
 }
@@ -437,17 +498,24 @@
 .form-group select {
   width: 100%;
   padding: 12px 15px;
-  border: 2px solid #e0e0e0;
+  border: 2px solid rgba(255, 215, 0, 0.3);
   border-radius: 10px;
   font-size: 1rem;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
   box-sizing: border-box;
+  background: #0a0a0a;
+  color: #fff;
+}
+
+.form-group input::placeholder {
+  color: #666;
 }
 
 .form-group input:focus,
 .form-group select:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: #FFD700;
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
 }
 
 .modal-actions {
@@ -458,25 +526,26 @@
 
 .btn-cancel {
   flex: 1;
-  background: #e0e0e0;
-  color: #666;
-  border: none;
+  background: #2a2a2a;
+  color: #FFD700;
+  border: 2px solid rgba(255, 215, 0, 0.3);
   border-radius: 10px;
   padding: 12px 20px;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, border-color 0.2s;
 }
 
 .btn-cancel:hover {
-  background: #d0d0d0;
+  background: #1a1a1a;
+  border-color: #FFD700;
 }
 
 .btn-submit {
   flex: 1;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  color: #000;
   border: none;
   border-radius: 10px;
   padding: 12px 20px;
@@ -484,11 +553,12 @@
   font-weight: bold;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
 }
 
 .btn-submit:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
 }
 
 /* Responsivo */
