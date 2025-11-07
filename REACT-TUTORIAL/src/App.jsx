@@ -43,6 +43,8 @@ function AppContent() {
       <Route path="modulos" element={<ModulesPage />} />
       <Route path="tutorial/:id" element={<ModulesPage />} />
       <Route path="player" element={<PlayerPage />} />
+      <Route path="planos" element={<PlansPage />} />
+      <Route path="perfil" element={<ProfilePage />} />
       <Route path="admin" element={
         <AdminRoute>
           <AdminPage />

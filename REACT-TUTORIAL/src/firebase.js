@@ -4,17 +4,22 @@ import { getAnalytics } from 'firebase/analytics';
 import { getFirestore, enableIndexedDbPersistence } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Firebase configuration usando variáveis de ambiente
+// IMPORTANTE: No Vercel, configure estas variáveis no Dashboard
 const firebaseConfig = {
-  apiKey: "AIzaSyCPnbugFRNqsZQbgP5Giyr_a-Uw_3BPe5w",
-  authDomain: "platcursomaicon.firebaseapp.com",
-  projectId: "platcursomaicon",
-  storageBucket: "platcursomaicon.firebasestorage.app",
-  messagingSenderId: "426777851049",
-  appId: "1:426777851049:web:677516c36e8b63d5aa25b8",
-  measurementId: "G-XEH7RD0YZN"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
+
+// Validação: garante que as variáveis foram configuradas
+if (!firebaseConfig.apiKey || !firebaseConfig.projectId) {
+  throw new Error('❌ Configuração Firebase incompleta. Verifique as variáveis de ambiente.');
+}
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

@@ -1,0 +1,30 @@
+# ⚡ AÇÕES IMEDIATAS - VERCEL
+
+## 🔴 CONFIGURE ESTAS VARIÁVEIS NO VERCEL AGORA:
+
+1. Acesse: https://vercel.com/caiolamoglia1/barbercursos-czba/settings/environment-variables
+
+2. Adicione (Production + Preview + Development):
+
+```
+STRIPE_SECRET_KEY = sk_test_... (sua chave secreta do Stripe)
+```
+
+3. **Redeploy** o projeto após adicionar a variável
+
+---
+
+## 🧪 TESTAR:
+
+Após o redeploy:
+1. Acesse: https://barbercursos-czba.vercel.app/curso-barbearia/planos
+2. Clique em qualquer plano
+3. Deve redirecionar para o Stripe
+
+---
+
+## ❓ ONDE PEGAR A CHAVE STRIPE:
+
+https://dashboard.stripe.com/test/apikeys
+
+Copie a "Secret key" (começa com `sk_test_`)

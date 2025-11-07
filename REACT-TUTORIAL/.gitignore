@@ -24,6 +24,19 @@ dist-ssr
 *.sw?
 .vercel
 
+# Environment variables - CRÍTICO!
+.env
+.env.local
+.env.development
+.env.production
+.env.*.local
+
 # Firebase Admin credentials
 serviceAccountKey.json
 *firebase-adminsdk*.json
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+
+# Stripe CLI
+.stripe

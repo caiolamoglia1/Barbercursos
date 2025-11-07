@@ -2,19 +2,42 @@
 const initAdmin = require('./_admin');
 const Stripe = require('stripe');
 
+// Configuração para receber raw body (necessário para verificação de assinatura Stripe)
+module.exports.config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
 module.exports = async (req, res) => {
   if (req.method !== 'POST') return res.status(405).send('Method Not Allowed');
 
-  const stripeSecret = process.env.STRIPE_SECRET;
+  const stripeSecret = process.env.STRIPE_SECRET_KEY;
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
-  if (!stripeSecret || !webhookSecret) return res.status(500).send('Stripe secrets not configured');
+  
+  if (!stripeSecret || !webhookSecret) {
+    console.error('❌ Stripe secrets not configured');
+    return res.status(500).send('Stripe secrets not configured');
+  }
 
   const stripe = Stripe(stripeSecret);
 
-  // Vercel provides body as parsed JSON; to verify signature we need raw body.
-  // Vercel exposes the raw body via `req.rawBody` when using `@vercel/node` with config.
+  // Obter raw body para verificação de assinatura
   const signature = req.headers['stripe-signature'];
-  const rawBody = req.rawBody || JSON.stringify(req.body);
+  let rawBody;
+  
+  try {
+    // Vercel expõe o body como Buffer quando bodyParser está desabilitado
+    rawBody = await new Promise((resolve, reject) => {
+      let buffer = '';
+      req.on('data', chunk => buffer += chunk);
+      req.on('end', () => resolve(buffer));
+      req.on('error', reject);
+    });
+  } catch (err) {
+    console.error('❌ Error reading request body:', err);
+    return res.status(400).send('Error reading request body');
+  }
 
   let event;
   try {

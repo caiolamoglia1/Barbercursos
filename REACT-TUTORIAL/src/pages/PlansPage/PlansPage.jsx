@@ -14,33 +14,63 @@ const PlansPage = () => {
 
   // New: start Stripe Checkout flow
   const handleStripeSubscribe = async (planId) => {
-    if (!currentUser) return alert('Você precisa estar logado para assinar.');
+    if (!currentUser) {
+      alert('Você precisa estar logado para assinar.');
+      return;
+    }
+    
     setLoadingPlan(planId);
+    
     try {
+      console.log('Iniciando checkout para:', { planId, userId: currentUser.uid });
+      
+      // URL da API - sempre relativa (funciona local e produção)
       const resp = await fetch('/api/create-checkout-session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ planId, userId: currentUser.uid })
       });
+      
+      // Verificar se a resposta é JSON válida
+      const contentType = resp.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        const text = await resp.text();
+        console.error('❌ API não retornou JSON:', text);
+        throw new Error('Erro no servidor. Verifique as configurações do Stripe no Vercel.');
+      }
+      
       const data = await resp.json();
-      if (data.error) throw new Error(data.error);
+      
+      if (!resp.ok) {
+        throw new Error(data.error || `Erro ${resp.status}: ${resp.statusText}`);
+      }
+      
+      if (data.error) {
+        throw new Error(data.error);
+      }
 
       // Prefer backend-provided URL (works with newer Stripe responses)
       if (data.url) {
+        console.log('✅ Redirecionando para Stripe checkout...');
         window.location.href = data.url;
         return;
       }
 
       // Fallback to redirectToCheckout using sessionId
-      const stripe = await stripePromise;
-      const { error } = await stripe.redirectToCheckout({ sessionId: data.sessionId });
-      if (error) {
-        console.error('Stripe redirect error', error);
-        alert('Erro ao redirecionar para o Stripe.');
+      if (data.sessionId) {
+        console.log('✅ Usando sessionId para redirect...');
+        const stripe = await stripePromise;
+        const { error } = await stripe.redirectToCheckout({ sessionId: data.sessionId });
+        if (error) {
+          console.error('Stripe redirect error', error);
+          throw new Error(error.message || 'Erro ao redirecionar para o Stripe.');
+        }
+      } else {
+        throw new Error('Resposta inválida do servidor: faltando URL ou sessionId');
       }
     } catch (err) {
-      console.error('create-checkout-session error', err);
-      alert('Não foi possível iniciar o pagamento.');
+      console.error('❌ create-checkout-session error:', err);
+      alert(`Não foi possível iniciar o pagamento:\n\n${err.message}\n\nVerifique se as variáveis STRIPE_SECRET_KEY estão configuradas no Vercel.`);
     } finally {
       setLoadingPlan(null);
     }
@@ -91,7 +121,13 @@ const PlansPage = () => {
                 <li>Sem certificados</li>
               </ul>
               <div className="barber-plan-cta">
-                <button onClick={() => handleBuy('basic')} className="barber-choose-btn barber-choose-btn-outline">Começar grátis</button>
+                <button 
+                  onClick={() => handleStripeSubscribe('basic')} 
+                  className="barber-choose-btn barber-choose-btn-outline"
+                  disabled={loadingPlan === 'basic'}
+                >
+                  {loadingPlan === 'basic' ? 'Carregando...' : 'Começar grátis'}
+                </button>
               </div>
             </article>
 
@@ -110,7 +146,13 @@ const PlansPage = () => {
                 <li>Suporte via chat</li>
               </ul>
               <div className="barber-plan-cta">
-                <button onClick={() => handleStripeSubscribe('pro')} className="barber-choose-btn barber-choose-btn-outline">Assinar Pro</button>
+                <button 
+                  onClick={() => handleStripeSubscribe('pro')} 
+                  className="barber-choose-btn barber-choose-btn-outline"
+                  disabled={loadingPlan === 'pro'}
+                >
+                  {loadingPlan === 'pro' ? 'Carregando...' : 'Assinar Pro'}
+                </button>
               </div>
             </article>
 
@@ -130,7 +172,13 @@ const PlansPage = () => {
                 <li>Certificado físico</li>
               </ul>
               <div className="barber-plan-cta">
-                <button onClick={() => handleStripeSubscribe('elite')} className="barber-choose-btn barber-choose-btn-outline">Assinar Elite</button>
+                <button 
+                  onClick={() => handleStripeSubscribe('elite')} 
+                  className="barber-choose-btn barber-choose-btn-outline"
+                  disabled={loadingPlan === 'elite'}
+                >
+                  {loadingPlan === 'elite' ? 'Carregando...' : 'Assinar Elite'}
+                </button>
               </div>
             </article>
           </div>

@@ -9,9 +9,19 @@ const STRIPE_PLANS = {
 };
 
 module.exports = async (req, res) => {
-  // Enable CORS
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  // Enable CORS com domínio específico (mais seguro)
+  const allowedOrigins = [
+    'http://localhost:5173',
+    'https://barbercursos-czba.vercel.app', // Seu domínio Vercel
+    process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null
+  ].filter(Boolean);
+  
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
   res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
 
@@ -27,8 +37,10 @@ module.exports = async (req, res) => {
   try {
     const stripeSecret = process.env.STRIPE_SECRET_KEY;
     if (!stripeSecret) {
-      console.error('STRIPE_SECRET_KEY not configured');
-      return res.status(500).json({ error: 'Stripe not configured' });
+      console.error('❌ STRIPE_SECRET_KEY not configured in Vercel Environment Variables');
+      return res.status(500).json({ 
+        error: 'Stripe not configured. Please add STRIPE_SECRET_KEY to Vercel Environment Variables.' 
+      });
     }
 
     const stripe = Stripe(stripeSecret);
