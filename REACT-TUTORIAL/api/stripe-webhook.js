@@ -1,15 +1,15 @@
 // api/stripe-webhook.js
-const initAdmin = require('./_admin');
-const Stripe = require('stripe');
+import initAdmin from './_admin.js';
+import Stripe from 'stripe';
 
 // Configuração para receber raw body (necessário para verificação de assinatura Stripe)
-module.exports.config = {
+export const config = {
   api: {
     bodyParser: false,
   },
 };
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).send('Method Not Allowed');
 
   const stripeSecret = process.env.STRIPE_SECRET_KEY;
@@ -77,4 +77,4 @@ module.exports = async (req, res) => {
   }
 
   res.status(200).send('ok');
-};
+}

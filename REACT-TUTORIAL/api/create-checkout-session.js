@@ -1,5 +1,5 @@
 // api/create-checkout-session.js
-const Stripe = require('stripe');
+import Stripe from 'stripe';
 
 // Mapeamento dos Price IDs
 const STRIPE_PLANS = {
@@ -8,7 +8,7 @@ const STRIPE_PLANS = {
   elite: 'price_1SIsuTRpeDjVow8XEMa18RjB'
 };
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   // Enable CORS com domínio específico (mais seguro)
   const allowedOrigins = [
     'http://localhost:5173',
@@ -35,6 +35,9 @@ module.exports = async (req, res) => {
   }
 
   try {
+    console.log('🔍 Verificando variáveis de ambiente...');
+    console.log('Environment keys:', Object.keys(process.env).filter(k => k.includes('STRIPE')));
+    
     const stripeSecret = process.env.STRIPE_SECRET_KEY;
     if (!stripeSecret) {
       console.error('❌ STRIPE_SECRET_KEY not configured in Vercel Environment Variables');
@@ -43,8 +46,11 @@ module.exports = async (req, res) => {
       });
     }
 
+    console.log('✅ Stripe secret encontrado, inicializando...');
     const stripe = Stripe(stripeSecret);
+    
     const { planId, userId } = req.body || {};
+    console.log('📦 Request body:', { planId, userId });
 
     if (!planId || !userId) {
       return res.status(400).json({ error: 'planId and userId required' });
@@ -73,4 +79,4 @@ module.exports = async (req, res) => {
     console.error('create-checkout-session error:', err);
     return res.status(500).json({ error: err.message || 'Internal server error' });
   }
-};
+}

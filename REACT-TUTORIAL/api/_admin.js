@@ -2,9 +2,9 @@
 // Inicializa firebase-admin de forma idempotente.
 // Em Vercel, passe a chave do service account via env FIREBASE_SERVICE_ACCOUNT (JSON string)
 
-const admin = require('firebase-admin');
+import admin from 'firebase-admin';
 
-module.exports = function initAdmin() {
+export default function initAdmin() {
   if (admin.apps && admin.apps.length) return admin;
 
   const saJson = process.env.FIREBASE_SERVICE_ACCOUNT;
@@ -24,4 +24,4 @@ module.exports = function initAdmin() {
   }
 
   return admin;
-};
+}
